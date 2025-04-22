@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      background: url('ss.jpg') no-repeat center center fixed;
+      background-size: cover;
+      font-family: 'Segoe UI', sans-serif;
+      color: black;
+      position: relative;
+      display: flex;
+      justify-content: center; /* Centers content horizontally */
+      align-items: center; /* Centers content vertically */
+      flex-direction: column; /* Stacks content vertically */
+    }
+
+    /* Updated Welcome Text styling */
+    .welcome-text {
+      font-size: 4rem; /* Increased size of Welcome text */
+      font-weight: bold;
+      position: absolute;
+      top: 20px; /* Position at the top */
+      left: 50%; /* Center horizontally */
+      transform: translateX(-50%); /* Adjust for perfect centering */
+      display: flex;
+      align-items: center;
+      margin-bottom: 30px; /* Adds space below welcome text */
+    }
+
+    .home-icon {
+      margin-left: 10px;
+    }
+
+    /* Description section without container */
+    .description {
+      text-align: center;
+      font-size: 1.2rem;
+      line-height: 1.6;
+      margin-bottom: 30px; /* Adds space below description */
+      padding: 0 15px; /* Optional: Adds some padding to the left and right */
+    }
+
+    .help-box {
+      width: 100%;
+      text-align: center;
+    }
+
+    .help-box h3 {
+      font-size: 1.5rem;
+      margin-bottom: 20px;
+    }
+
+    .button-stack {
+      display: flex;
+      justify-content: center; /* Centers buttons horizontally */
+      gap: 15px; /* Adds spacing between buttons */
+    }
+
+    .button-stack button {
+      width: 150px;
+      padding: 12px;
+      font-size: 1rem;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      background-color: red; /* Orange color */
+    }
+
+    .button-stack button:hover {
+      background-color: red; /* Darker orange on hover */
+    }
+
+    .logout-button {
+      position: absolute;
+      top: 30px;
+      right: 30px;
+      padding: 10px 20px;
+      font-size: 1rem;
+      background-color: #4a90e2;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .logout-button:hover {
+      background-color: #357ABD;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="welcome-text">
+    Welcome... <span class="home-icon">🏠</span>
+  </div>
+
+  <div class="description">
+    <strong>Interior Design Using VR and AR</strong> is an innovative project that transforms the way interior spaces are planned and experienced. By combining Virtual Reality (VR) and Augmented Reality (AR), users can visualize and interact with room designs in a realistic and immersive environment. This allows clients and designers to preview furniture, layouts, and decor in real time, making design decisions faster, more accurate, and more engaging.
+  </div>
+
+  <div class="help-box">
+    <h3>How can I help you?</h3>
+    
+    <div class="button-stack">
+      <!-- Replace the alert with actual page navigation -->
+      <button onclick="window.location.href = 'profile.html'">PROFILE</button>
+      <button onclick="window.location.href = 'explore.html'">EXPLORE</button>
+      <button onclick="window.location.href = 'saved.html'">SAVED</button>
+    
+
+     
+    </div>
+  </div>
+
+  <button class="logout-button" onclick="logout()">Logout</button>
+
+  <script>
+    function logout() {
+      window.location.href = "Firstpage.html"; // Change this to your main/login page
+    }
+  </script>
+
+</body>
+</html>

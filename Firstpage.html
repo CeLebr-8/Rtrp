@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Interior Design with VR</title>
+  <style>
+    body {
+      background: url('fpic.jpg') no-repeat center center fixed;
+      background-size: cover;
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+
+    .header {
+      position: absolute;
+      top: 20px;
+      left: 30px;
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: white;
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+    }
+
+    .login-button {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+    }
+
+    .login-button button {
+      padding: 10px 20px;
+      background-color: #4a90e2;
+      border: none;
+      border-radius: 8px;
+      color: white;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .login-button button:hover {
+      background-color: #357ABD;
+    }
+
+    .form-container {
+      display: none;
+      position: absolute;
+      top: 70px;
+      right: 30px;
+      background: rgba(255, 255, 255, 0.95);
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      width: 320px;
+      text-align: center;
+    }
+
+    .form-container input {
+      width: 100%;
+      margin: 10px 0;
+      padding: 10px;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+
+    .form-container button {
+      width: 100%;
+      margin-top: 10px;
+      padding: 10px;
+      background-color: #4a90e2;
+      color: white;
+      font-size: 1rem;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .form-container button:hover {
+      background-color: #357ABD;
+    }
+
+    .form-container p {
+      font-size: 0.9rem;
+      margin-top: 15px;
+    }
+
+    .form-container a {
+      color: #4a90e2;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .password-container {
+      position: relative;
+    }
+
+    .toggle-password {
+      position: absolute;
+      top: 50%;
+      right: 10px;
+      transform: translateY(-50%);
+      cursor: pointer;
+      font-size: 1.2rem;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <h1>Interior Design Using VR</h1>
+  </div>
+
+  <div class="login-button">
+    <button onclick="toggleForm()">Login / Register</button>
+  </div>
+
+  <!-- Form Container -->
+  <div class="form-container" id="formContainer">
+
+    <!-- Login Form -->
+    <div id="loginForm">
+      <h2>Login</h2>
+      <input type="text" placeholder="Name" id="loginName" required />
+
+      <div class="password-container">
+        <input type="password" placeholder="Password" id="loginPassword" required />
+        <span class="toggle-password" onclick="togglePassword('loginPassword', this)">👁️</span>
+      </div>
+
+      <button onclick="submitLogin()">Submit</button>
+      <p>New user? <a onclick="showRegister()">Create an account</a></p>
+    </div>
+
+    <!-- Register Form -->
+    <div id="registerForm" class="hidden">
+      <h2>Create Account</h2>
+      <input type="text" placeholder="Name" id="regName" required />
+      <input type="email" placeholder="Email" id="regEmail" required />
+      <input type="tel" placeholder="Phone Number" id="regPhone" required />
+
+      <div class="password-container">
+        <input type="password" placeholder="Create Password" id="regPassword" required />
+        <span class="toggle-password" onclick="togglePassword('regPassword', this)">👁️</span>
+      </div>
+
+      <div class="password-container">
+        <input type="password" placeholder="Confirm Password" id="regConfirmPassword" required />
+        <span class="toggle-password" onclick="togglePassword('regConfirmPassword', this)">👁️</span>
+      </div>
+
+      <button onclick="submitRegister()">Submit</button>
+      <p>Already have an account? <a onclick="showLogin()">Login here</a></p>
+    </div>
+
+  </div>
+
+  <script>
+    function toggleForm() {
+      const form = document.getElementById('formContainer');
+      form.style.display = form.style.display === 'block' ? 'none' : 'block';
+      showLogin(); // Always show login first
+    }
+
+    function showRegister() {
+      document.getElementById('loginForm').classList.add('hidden');
+      document.getElementById('registerForm').classList.remove('hidden');
+    }
+
+    function showLogin() {
+      document.getElementById('registerForm').classList.add('hidden');
+      document.getElementById('loginForm').classList.remove('hidden');
+    }
+
+    function togglePassword(fieldId, icon) {
+      const field = document.getElementById(fieldId);
+      const isPassword = field.type === "password";
+      field.type = isPassword ? "text" : "password";
+      icon.textContent = isPassword ? "🙈" : "👁️";
+    }
+
+    function submitLogin() {
+      const name = document.getElementById('loginName').value;
+      const password = document.getElementById('loginPassword').value;
+
+      if (!name || !password) {
+        alert('Please fill in both fields.');
+        return;
+      }
+
+      window.location.href = "secondpage.html"; // Redirect after successful login
+    }
+
+    function submitRegister() {
+      const name = document.getElementById('regName').value;
+      const email = document.getElementById('regEmail').value;
+      const phone = document.getElementById('regPhone').value;
+      const pass = document.getElementById('regPassword').value;
+      const confirmPass = document.getElementById('regConfirmPassword').value;
+
+      if (!name || !email || !phone || !pass || !confirmPass) {
+        alert('Please fill in all the fields.');
+        return;
+      }
+
+      if (pass !== confirmPass) {
+        alert('Passwords do not match.');
+        return;
+      }
+
+      // Save to localStorage
+      localStorage.setItem('name', name);
+      localStorage.setItem('email', email);
+      localStorage.setItem('phone', phone);
+
+      window.location.href = "secondpage.html"; // Redirect after successful registration
+    }
+  </script>
+
+</body>
+</html>
