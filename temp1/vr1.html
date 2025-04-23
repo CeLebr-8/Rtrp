@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>View in VR</title>
+  <style>
+    html, body {
+      margin: 0;
+      height: 100%;
+      background-color: #000;
+      overflow: hidden;
+    }
+
+    iframe {
+      width: 100vw;
+      height: 100vh;
+      border: none;
+    }
+  </style>
+</head>
+<body>
+
+  <iframe id="vrFrame" title="Loft Apartment"
+    allowfullscreen
+    mozallowfullscreen="true"
+    webkitallowfullscreen="true"
+    allow="autoplay; fullscreen; xr-spatial-tracking"
+    xr-spatial-tracking
+    execution-while-out-of-viewport
+    execution-while-not-rendered
+    web-share
+    src="https://sketchfab.com/models/44e7a9cfed67431e827d0cbaabd462c7/embed">
+  </iframe>
+
+  <script>
+    window.onload = () => {
+      const iframe = document.getElementById('vrFrame');
+
+      // Wait a bit for iframe to load, then request fullscreen
+      setTimeout(() => {
+        if (iframe.requestFullscreen) {
+          iframe.requestFullscreen();
+        } else if (iframe.webkitRequestFullscreen) { // Safari
+          iframe.webkitRequestFullscreen();
+        } else if (iframe.mozRequestFullScreen) { // Firefox
+          iframe.mozRequestFullScreen();
+        } else if (iframe.msRequestFullscreen) { // IE/Edge
+          iframe.msRequestFullscreen();
+        }
+      }, 500); // Short delay ensures iframe is visible
+    };
+  </script>
+
+</body>
+</html>

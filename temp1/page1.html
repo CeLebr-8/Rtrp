@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Page1</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background: url('p1.jpg') no-repeat center center fixed;
+      background-size: cover;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    h1 {
+      font-size: 2.5em;
+      margin-bottom: 20px;
+      color: white;
+      text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+    }
+
+    .image-container {
+      position: relative;
+      max-width: 800px;
+      width: 100%;
+      margin-bottom: 20px;
+    }
+
+    .image-container img {
+      width: 100%;
+      height: auto;
+      border-radius: 12px;
+      display: block;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .heart-icon {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      font-size: 28px;
+      color: #ccc;
+      background: white;
+      border: none;
+      border-radius: 50%;
+      padding: 8px;
+      cursor: pointer;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+      transition: color 0.3s ease;
+    }
+
+    .heart-icon:hover {
+      color: red;
+    }
+
+    .heart-icon.active {
+      color: red;
+    }
+
+    .description-box {
+      max-width: 800px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 20px;
+    }
+
+    .description-box label {
+      font-weight: bold;
+      margin-bottom: 8px;
+      font-size: 1.1em;
+      color: white;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+    }
+
+    .description-box textarea {
+      width: 100%;
+      height: 150px;
+      padding: 10px;
+      font-size: 1em;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      resize: vertical;
+    }
+
+    .vr-button {
+      padding: 12px 24px;
+      font-size: 1em;
+      color: white;
+      background-color: yellowgreen;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .vr-button:hover {
+      background-color: darkolivegreen;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Page1</h1>
+
+  <div class="image-container">
+    <img src="ss.jpg" alt="Destination 1" id="destinationImage">
+    <button class="heart-icon" id="saveHeart" title="Save">&#10084;</button>
+  </div>
+
+  <div class="description-box">
+    <label for="desc">Description</label>
+    <textarea id="desc" placeholder="Write your thoughts or notes about this destination..."></textarea>
+  </div>
+
+  <button class="vr-button" id="vrButton">View on VR</button>
+
+<script>
+    // Add this to your existing script
+    document.getElementById('vrButton').addEventListener('click', () => {
+        // For local development
+        window.open('../Project1/index.html', '_blank');
+        
+        // For GitHub Pages (uncomment when deploying)
+        window.open('/Project1/', '_blank');
+    });
+</script>
+
+</body>
+</html>

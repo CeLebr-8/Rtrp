@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://aframe.io/releases/0.7.0/aframe.min.js"></script>
+    <script src="https://cdn.rawgit.com/donmccurdy/aframe-extras/v1.14.0/dist/aframe-extras.min.js"></script>
+    <script src="https://rawgit.com/feiss/aframe-environment-component/master/dist/aframe-environment-component.min.js"></script>
+    <script>
+        lightOff = false;
+    </script>
+</head>
+<body>
+    <a-scene>
+        <a-assets>
+            <img id = "wood" src = "assets/hardwood.jpg">
+            <img id = "tile" src = "assets/tile.jpg">
+
+            <a-mixin id="floorMat" material="color:#BBB"></a-mixin>
+
+            <img id="groundTexture" src="https://cdn.aframe.io/a-painter/images/floor.jpg">
+            <img id="skyTexture" src="https://cdn.aframe.io/a-painter/images/sky.jpg">
+        </a-assets>
+
+        <a-entity position="0 2.7 0">
+            <a-camera id="cam" universal-controls>
+
+                <a-entity raycaster="far: 8; objects: .intersectable" cursor geometry="primitive: ring; radiusOuter: 0.015;
+                              radiusInner: 0.01; segmentsTheta: 32" material="color: #283644; shader: flat" position="0 0 -0.75"></a-entity>
+            </a-camera>
+        </a-entity>
+
+        <!-- Buttons for moving up/down stairs -->
+        <a-box id="up" geometry="width:0.28;height:0.6;depth:0.6" position="9.3 4.05 -5.871" src="assets/hardwood.jpg" class="intersectable"></a-box>
+        <a-box id="down" geometry="depth:0.6;height:0.6;width:0.27999999999999997" position="9.3 13.967 6.185" src="assets/hardwood.jpg" class="intersectable"></a-box>
+        <script>
+            var cam = document.querySelector('#cam');
+            var ch1 = document.querySelector('#up');
+            var ch2 = document.querySelector('#down');
+
+            ch1.addEventListener('click', function () {
+                cam.setAttribute('position' , {x: 11.557, y: 12.9, z: 10.59});
+                cam.setAttribute('rotation' , {x: 0, y: 90, z: 0});
+            });
+            ch2.addEventListener('click', function () {
+                cam.setAttribute('position' , {x: 11.557, y: 2.7, z: -5.536});
+                cam.setAttribute('rotation' , {x: 0, y: 0, z: 0});
+            });
+            </script>
+            <script type="text/javascript">
+                function switchLight()
+                {
+                    var light = document.querySelector("#insideLight");
+                    if(!lightOff)
+                    {
+                        light.setAttribute('light', 'color', '#1c0f62');
+                        lightOff = true;
+                    }
+                    else
+                    {
+                        light.setAttribute('light', 'color', '#BBB');
+                        lightOff = false;
+                    }
+                }
+            </script>
+
+        <!-- Staircase -->
+        <a-entity id="staircase" position="0 0 -7.383"><a-box position="12.051 0.703 4.555" src="assets/hardwood.jpg" geometry="depth:1.23;height:1.2;width:5.85"></a-box>
+            <a-box position="12.051 1.306 5.799" src="assets/hardwood.jpg" geometry="depth:1.23;height:2.4;width:5.85"></a-box>
+            <a-box position="12.051 1.863 7.036" src="assets/hardwood.jpg" geometry="depth:1.23;height:3.6;width:5.85"></a-box>
+            <a-box position="12.051 2.383 8.267" src="assets/hardwood.jpg" geometry="depth:1.23;height:4.8;width:5.85"></a-box>
+            <a-box position="12.051 3.068 9.488" src="assets/hardwood.jpg" geometry="depth:1.23;height:6;width:5.85"></a-box>
+            <a-box position="12.051 3.611 10.664" src="assets/hardwood.jpg" geometry="depth:1.23;height:7.2;width:5.85"></a-box>
+            <a-box position="12.051 4.25 11.883" src="assets/hardwood.jpg" geometry="depth:1.23;height:8.4;width:5.85"></a-box>
+            <a-box position="12.051 4.871 13.114" src="assets/hardwood.jpg" geometry="depth:1.23;height:9.6;width:5.85"></a-box>
+            <a-box position="12.051 4.871 14.319" src="assets/hardwood.jpg" geometry="depth:1.23;height:9.6;width:5.85"></a-box>
+            <a-box position="12.051 4.871 18.568" src="assets/hardwood.jpg" geometry="depth:7.39;height:9.6;width:5.85"></a-box>
+        </a-entity>
+
+
+        <!-- House Frame -->
+        <!--Roof-->
+        <a-triangle src="assets/roof-tile.jpg" position="6.871 33.947 -7.836" rotation="-27.5 180 0" scale="75 35 25" material="side:double" geometry=""></a-triangle>
+        <a-triangle src="assets/roof-tile.jpg" position="6.871 33.947 7.812" rotation="-27.5 0 0" scale="75 35 25" material="side:double"></a-triangle>
+        <a-triangle src="assets/roof-tile.jpg" position="25.237 33.947 -0.043" rotation="-50.5 90 0" scale="31.5 48 25" material="side:double"></a-triangle>
+        <a-triangle src="assets/roof-tile.jpg" position="-11.759 33.947 0.011" rotation="50.5 90 0" scale="31.5 48 25" material="side:double"></a-triangle>
+
+        <!--Exterior-->
+        <a-obj-model material="" scale="0.03 0.03 0.03" position="-1.44 0.051 16.579" src="assets/puerta.obj" mtl="assets/puerta.mtl" class="intersectable"></a-obj-model>
+        <a-box src="assets/wall-exterior.jpg" id="exterior-wall-1" depth="30" height="10" width="5" position="-6.039 9.169 15.38" geometry="height:18.5;depth:42;width:0.22" rotation="0 90 0"></a-box>
+        <a-box src="assets/wall-exterior.jpg" id="exterior-wall-2" depth="30" height="10" width="5" position="26.9 9.17 15.343" geometry="height:18.5;depth:24;width:0.22" rotation="0 90 0"></a-box>
+        <a-box src="assets/wall-exterior.jpg" id="exterior-wall-3" depth="30" height="10" width="5" position="39.116 9.254 0" geometry="height:20;width:0.22"></a-box>
+        <a-box src="assets/wall-exterior.jpg" id="exterior-wall-4" depth="30" height="10" width="5" position="27.077 9.295 -15.212" geometry="height:18.5;depth:24;width:0.22" rotation="0 90 0"></a-box>
+        <a-box src="assets/wall-exterior.jpg" id="exterior-wall-5" depth="30" height="10" width="5" position="-5.995 9.149 -15.065" geometry="height:18.5;depth:42;width:0.22" rotation="0 90 0"></a-box>
+        <a-box src="assets/wall-exterior.jpg" id="exterior-wall-6" depth="30" height="10" width="5" position="-27.076 15.187 0.051" geometry="height:9;width:0.22"></a-box>
+        <a-box src="assets/wall-exterior.jpg" id="exterior-wall-7" depth="30" height="10" width="5" position="-27.103 8.326 -11.645" geometry="depth:6.45;height:4.8;width:0.22"></a-box>
+        <a-box src="assets/wall-exterior.jpg" id="exterior-wall-8" depth="30" height="10" width="5" position="-27.122 8.326 8.564" geometry="depth:12.96;height:4.8;width:0.22"></a-box>
+        <a-box src="assets/wall-exterior.jpg" id="exterior-wall-9" depth="30" height="10" width="5" position="-27.163 2.933 0" geometry="height:6;width:0.22"></a-box>
+
+        <!-- Floors -->
+        <a-box position="-5.996 0 0" src="assets/hardwood.jpg" depth="30" height=".2" width="30" geometry="width:42"></a-box>
+        <a-box src="assets/hardwood.jpg" depth="30" height=".2" width="30" position="-2.936 9.924 0" geometry="width:23.97"></a-box>
+        <a-box src="assets/hardwood.jpg" depth="30" height=".2" width="30" position="26.883 14.709 0" geometry="width:23.97"></a-box>
+        <a-box src="assets/hardwood.jpg" depth="30" height=".2" width="30" position="-6.182 19.992 0" geometry="width:42"></a-box>
+        
+        <!-- Walls -->
+        <a-entity>
+            <a-box src="assets/tile.jpg" depth="30" height="10" width="5" position="14.91 9.94 2.599" geometry="depth:25;height:20;width:0.22"></a-box>
+            <a-box src="assets/tile.jpg" depth="30" height="10" width="5" position="9.048 14.94 -3.669" geometry="depth:22.29;height:9.87;width:0.22"></a-box>
+            <a-box src="assets/tile.jpg" depth="30" height="10" width="5" position="-14.977 14.879 0" geometry="width:0.22"></a-box><a-box src="assets/tile.jpg" depth="30" height="10" width="5" position="-14.977 1.557 -3.782" geometry="depth:22;height:3;width:0.22"></a-box>
+            <a-box src="assets/tile.jpg" depth="30" height="10" width="5" position="-6.039 9.88 15.021" geometry="depth:42;height:20;width:0.22" rotation="0 90 0"></a-box>
+            <a-box src="assets/tile.jpg" depth="30" height="10" width="5" position="-5.995 9.923 -14.914" geometry="depth:42;height:20;width:0.22" rotation="0 90 0"></a-box>
+            <a-box src="assets/tile.jpg" depth="30" height="10" width="5" position="15.001 14.94 -3.878" geometry="depth:22.29;height:9.87;width:0.22"></a-box>
+            <a-box src="assets/tile.jpg" depth="30" height="10" width="5" position="-26.978 15.19 0" geometry="height:9;width:0.22"></a-box><a-box src="assets/tile.jpg" depth="30" height="10" width="5" position="-26.978 2.933 0" geometry="height:6;width:0.22"></a-box><a-box src="assets/tile.jpg" depth="30" height="10" width="5" position="-26.978 8.326 8.564" geometry="depth:12.96;height:4.8;width:0.22"></a-box><a-box src="assets/tile.jpg" depth="30" height="10" width="5" position="-26.978 8.326 -11.645" geometry="depth:6.45;height:4.8;width:0.22"></a-box><a-box material="opacity:0.37;transparent:true;src:" src="assets/tile.jpg" depth="30" height="10" width="5" position="-26.978 8.271 -3.182" geometry="depth:10.52;height:4.78;width:0.22"></a-box>
+            <a-box src="assets/tile.jpg" depth="30" height="10" width="5" position="9.048 4.986 3.946" geometry="depth:22;height:10.12;width:0.22"></a-box>
+            <a-box src="assets/tile.jpg" depth="30" height="10" width="5" position="27.077 9.923 -14.914" geometry="depth:24;height:20;width:0.22" rotation="0 90 0"></a-box>
+            <a-box src="assets/tile.jpg" depth="30" height="10" width="5" position="26.9 9.88 15.021" geometry="depth:24;height:20;width:0.22" rotation="0 90 0"></a-box>
+            <a-box src="assets/tile.jpg" depth="30" height="10" width="5" position="38.871 9.94 0" geometry="height:20;width:0.22"></a-box>
+        </a-entity>
+        <!-- Wall Ornaments -->
+        <a-entity>
+            <a-box src="assets/hardwood.jpg" depth="30" height=".2" width="30" position="-5.058 14.848 -14.595" geometry="depth:0.41;height:10;width:1.23"></a-box>
+            <a-box src="assets/hardwood.jpg" depth="30" height=".2" width="30" position="-0.472 14.848 -14.595" geometry="depth:0.41;height:10;width:1.23"></a-box>
+            <a-box src="assets/hardwood.jpg" depth="30" height=".2" width="30" position="3.997 14.848 -14.595" geometry="depth:0.41;height:10;width:1.23"></a-box>
+            <a-box src="assets/hardwood.jpg" depth="30" height=".2" width="30" position="8.351 14.848 -14.595" geometry="depth:0.41;height:10;width:1.23"></a-box>
+            <a-box src="assets/hardwood.jpg" depth="30" height=".2" width="30" position="-9.785 14.848 -14.595" geometry="depth:0.41;height:10;width:1.23"></a-box>
+            <a-box src="assets/hardwood.jpg" depth="30" height=".2" width="30" position="-14.244 14.848 -14.595" geometry="depth:0.41;height:10;width:1.23"></a-box>
+            <a-box src="assets/hardwood.jpg" depth="30" height=".2" width="30" position="-14.244 14.848 14.738" geometry="depth:0.41;height:10;width:1.23"></a-box>
+            <a-box src="assets/hardwood.jpg" depth="30" height=".2" width="30" position="-9.824 14.848 14.738" geometry="depth:0.41;height:10;width:1.23"></a-box>
+            <a-box src="assets/hardwood.jpg" depth="30" height=".2" width="30" position="-5.298 14.848 14.738" geometry="depth:0.41;height:10;width:1.23"></a-box>
+            <a-box src="assets/hardwood.jpg" depth="30" height=".2" width="30" position="-0.801 14.848 14.738" geometry="depth:0.41;height:10;width:1.23"></a-box>
+            <a-box src="assets/hardwood.jpg" depth="30" height=".2" width="30" position="3.591 14.848 14.738" geometry="depth:0.41;height:10;width:1.23"></a-box>
+            <a-box src="assets/hardwood.jpg" depth="30" height=".2" width="30" position="8.289 14.848 14.738" geometry="depth:0.41;height:10;width:1.23"></a-box>
+            <a-box src="assets/hardwood.jpg" depth="30" height=".2" width="30" position="14.366 14.848 14.738" geometry="depth:0.41;height:10;width:1.23"></a-box>
+            <a-box rotation="0 90 0" src="assets/hardwood.jpg" depth="30" height=".2" width="30" position="-14.679 14.848 -14.116" geometry="depth:0.41;height:10;width:1.23"></a-box>
+            <a-box rotation="0 90 0" src="assets/hardwood.jpg" depth="30" height=".2" width="30" position="-14.679 14.848 -10.144" geometry="depth:0.41;height:10;width:1.23"></a-box>
+            <a-box rotation="0 90 0" src="assets/hardwood.jpg" depth="30" height=".2" width="30" position="-14.679 14.848 -5.872" geometry="depth:0.41;height:10;width:1.23"></a-box>
+            <a-box rotation="0 90 0" src="assets/hardwood.jpg" depth="30" height=".2" width="30" position="-14.679 14.848 -1.581" geometry="depth:0.41;height:10;width:1.23"></a-box>
+            <a-box rotation="0 90 0" src="assets/hardwood.jpg" depth="30" height=".2" width="30" position="-14.679 14.848 2.51" geometry="depth:0.41;height:10;width:1.23"></a-box>
+            <a-box rotation="0 90 0" src="assets/hardwood.jpg" depth="30" height=".2" width="30" position="-14.679 14.848 6.597" geometry="depth:0.41;height:10;width:1.23"></a-box>
+            <a-box rotation="0 90 0" src="assets/hardwood.jpg" depth="30" height=".2" width="30" position="-14.679 14.848 10.685" geometry="depth:0.41;height:10;width:1.23"></a-box>
+            <a-box rotation="0 90 0" src="assets/hardwood.jpg" depth="30" height=".2" width="30" position="-14.679 14.848 14.308" geometry="depth:0.41;height:10;width:1.23"></a-box>
+            <a-box rotation="0 90 0" src="assets/hardwood.jpg" depth="30" height=".2" width="30" position="14.659 14.848 14.308" geometry="depth:0.41;height:10;width:1.23"></a-box>
+            <a-box rotation="0 90 0" src="assets/hardwood.jpg" depth="30" height=".2" width="30" position="8.667 14.848 -14.116" geometry="depth:0.41;height:10;width:1.23"></a-box>
+
+            <a-box rotation="90 90 90" src="assets/hardwood.jpg" depth="30" height=".2" width="30" position="8.154 16.633 -9.217" geometry="depth:0.41;height:5.56;width:1.23"></a-box>
+            <a-box rotation="90 90 90" src="assets/hardwood.jpg" depth="30" height=".2" width="30" position="8.154 14.848 -2.297" geometry="depth:0.41;height:5.56;width:1.23"></a-box>
+
+            <a-box src="assets/hardwood.jpg" depth="30" height=".2" width="30" position="26.784 0.046 0.139" geometry="width:23.97"></a-box>
+            
+        </a-entity>
+
+        <!--Environment-->
+        <a-entity environment="ground: flat"></a-entity>
+        <a-entity id="insideLight" light="color:#BBB;type:ambient" position="0 7.486 2.815"></a-entity>
+
+        <!--Switch-->
+        <a-entity id="dimmer" onclick="switchLight()" position="-25 4 -19" rotation="0 90 0" class="intersectable">
+            <a-box position="-33.681 0.01 21.343" width="0.5" height="0.75" depth="0.1" color="white" rotation="0 90 0"></a-box>
+        </a-entity>
+
+        <!-- Carpet -->
+        <a-box src="assets/carpet.jpg" id="carpet" position="-3.551 0.083 2.145" geometry="depth:20;height:0.14;width:15"></a-box>
+
+        <!-- Fireplace -->
+        <a-entity id="fireplace"><a-box src="assets/fireplace.jpg" position="-4.081 2.983 -14.384" geometry="depth:0.85;height:5.390000000000001;width:7.05"></a-box><a-box src="assets/fireplace.jpg" position="-4.081 7.728 -13.177" geometry="height:4.15;width:4.36;depth:0.85"></a-box>
+            <a-box src="assets/marble.png" position="-6.41 0.213 -12.163" rotation="90 0 0" geometry="depth:0.14;height:3.73;width:2.33"></a-box><a-box src="assets/marble.png" position="-4.106 0.213 -12.163" rotation="90 0 0" geometry="depth:0.14;height:3.73;width:2.33"></a-box><a-box src="assets/marble.png" position="-1.809 0.213 -12.163" rotation="90 0 0" geometry="depth:0.14;height:3.73;width:2.33"></a-box>
+
+            <a-box src="assets/fireplace.jpg" position="-0.221 2.919 -13.766" geometry="depth:2.11;height:5.5;width:0.8"></a-box><a-box src="assets/fireplace.jpg" position="-8.015 2.919 -13.766" geometry="depth:2.11;height:5.5;width:0.8"></a-box>
+            <a-box src="assets/fireplace.jpg" position="-4.085 5.27 -13.365" rotation="0 0 90" geometry="depth:1.34;height:7.05;width:0.8"></a-box>
+        </a-entity>
+
+        <!-- Firewood -->
+        <a-entity id="firewood"><a-obj-model src="assets/firewood.obj" mtl="assets/firewood.mtl" position="-4.124 0.376 -12.681" rotation="270 0 0" scale="0.003 0.003 0.003" material=""></a-obj-model>
+            <a-obj-model src="assets/firewood.obj" mtl="assets/firewood.mtl" position="-6.194 0.376 -12.681" rotation="270 0 0" scale="0.003 0.003 0.003" material=""></a-obj-model>
+            <a-obj-model src="assets/firewood.obj" mtl="assets/firewood.mtl" position="-2.108 0.376 -12.681" rotation="270 0 0" scale="0.003 0.003 0.003" material=""></a-obj-model>
+        </a-entity>
+
+        <!-- Ceiling Items -->
+        <a-obj-model rotation="0 50 0" material="" scale="0.05 0.05 0.05" position="-0.351 7.565 3.703" src="assets/fan.obj" mtl="assets/fan.mtl">
+            <a-animation begin="click" to="0 360 0" dur="2400"></a-animation>
+        </a-obj-model>
+        <a-obj-model material="" scale="0.7 0.7 0.7" rotation="90 0 0" position="0 9.765 8.606" src="assets/track-lights.obj" mtl="assets/track-lights.mtl"></a-obj-model>
+        <a-obj-model material="" scale="0.7 0.7 0.7" rotation="90 180 0" position="0 9.765 -1.513" src="assets/track-lights.obj" mtl="assets/track-lights.mtl"></a-obj-model>
+
+        <!-- Plants -->
+        <a-obj-model id="plant-1" material="" scale="0.04 0.04 0.04" position="-10.667 0.107 -13.652" src="assets/spatifilum.obj" mtl="assets/spatifilum.mtl"></a-obj-model>
+        <a-obj-model id="plant-2" material="" scale="0.04 0.04 0.04" position="2.938 0.107 -13.652" src="assets/spatifilum.obj" mtl="assets/spatifilum.mtl"></a-obj-model>
+        <a-obj-model id="plant-3" material="" scale="0.07 0.07 0.07" position="-15.046 3.023 5.762" src="assets/succulentPlant.obj" mtl="assets/succulentPlant.mtl"></a-obj-model>
+        <a-obj-model id="plant-4" rotation="0 90 0" material="" scale="0.07 0.07 0.07" position="7.336 0.11 13.461" src="assets/ficus.obj" mtl="assets/ficus.mtl"></a-obj-model>
+
+        <!-- Television -->
+        <a-entity id="television"><a-box color="#000000" position="8.831 5.776 3.779" geometry="depth:8.46;height:4.6;width:0.15" class="intersectable">
+            <a-animation begin="click" attribute="material.color" from="black" to= "white" dur="2400"></a-animation>
+        </a-box>
+            <a-box color="#000000" position="8.81 8.13 3.78" material="color:#696969" geometry="depth:8.49;height:0.14;width:0.15"></a-box>
+            <a-box color="#000000" position="8.81 5.838 7.953" rotation="90 0 0" material="color:#696969" geometry="depth:4.6;height:0.14;width:0.15"></a-box>
+            <a-box color="#000000" position="8.81 5.796 -0.391" rotation="90 0 0" material="color:#696969" geometry="depth:4.6;height:0.14;width:0.15"></a-box>
+            <a-box color="#000000" position="8.81 3.551 3.781" material="color:#696969" geometry="depth:8.49;height:0.14;width:0.15"></a-box>
+        </a-entity>
+
+        <!-- Door -->
+        <a-obj-model material="" scale="0.03 0.03 0.03" position="-1.44 0.051 15.89" src="assets/puerta.obj" mtl="assets/puerta.mtl" class="intersectable"></a-obj-model>
+
+        <!-- Curtains -->
+        <a-obj-model material="color:#edd29c" scale="0.2 0.27 0.2" rotation="0 270 0" position="-26.561 10.634 1.199" src="assets/curtain.obj"></a-obj-model>
+        <a-obj-model material="color:#edd29c" scale="0.2 0.27 0.2" rotation="0 90 0" position="-26.665 10.611 -7.565" src="assets/curtain.obj"></a-obj-model>
+
+
+         <!-- Couch -->
+         <a-obj-model src="assets/couchPoofyPillows.obj" mtl="assets/couchPoofyPillows.mtl" id="couch" position="-3.659 1.566 -12.044" rotation="0 270 0" scale="1.5 1.5 1.5" material="" obj-model=""></a-obj-model>
+
+         <!--Coffee Table-->
+         <a-obj-model src="assets/salontafel.obj" mtl="assets/salontafel.mtl" id="coffee-table" position="0.209 0.241 5.814" rotation="0 180 0" scale="0.05 0.05 0.05" material=""></a-obj-model>
+         
+         <!--Side Tables-->
+         <a-obj-model src="assets/petiteTableSalon.obj" id="side-table-1" position="-8.718 0.124 9.057" rotation="0 180 0" scale="0.05 0.05 0.05" material="color:#804000" obj-model=""></a-obj-model>
+         <a-obj-model src="assets/petiteTableSalon.obj" id="side-table-2" position="-8.718 0.124 -1.564" rotation="0 180 0" scale="0.05 0.05 0.05" material="color:#804000"></a-obj-model>
+        
+         <!--Lamps-->
+         <a-obj-model src="assets/deskLamp1.obj" mtl="assets/deskLamp1.mtl" id="lamp-1" position="-9.993 2.854 8.186" scale="0.05 0.05 0.05" material="" obj-model=""></a-obj-model>
+         <a-obj-model src="assets/deskLamp1.obj" mtl="assets/deskLamp1.mtl" id="lamp-2" position="-9.993 2.854 -2.602" scale="0.05 0.05 0.05" material=""></a-obj-model>
+
+         <!--Entertainment Center-->
+        <a-obj-model src="assets/meubleHiFiBas.obj" mtl="assets/meubleHiFiBas.mtl" id="entertainment-center" position="6.953 2.617 3.783" scale="0.08 0.08 0.08" rotation="0 90 0" material=""></a-obj-model>
+
+        <!-- Bar -->
+        <a-entity>
+            <a-box material="" src="assets/marble.png" depth="30" height=".2" width="30" position="3.548 11.567 -11.252" geometry="depth:6.0600000000000005;width:0.58;height:3.12"></a-box><a-box src="assets/marble.png" depth="30" height=".2" width="30" position="3.548 11.567 -5.199" geometry="width:0.58;height:3.12;depth:6.06"></a-box><a-box src="assets/marble.png" depth="30" height=".2" width="30" position="3.548 11.567 -0.138" geometry="depth:4.1000000000000005;width:0.58;height:3.12"></a-box>
+            <a-box rotation="0 0 90" src="assets/marble.png" depth="30" height=".2" width="30" position="3.294 13.247 -11.81" geometry="depth:5.17;width:0.21;height:3.12"></a-box><a-box rotation="0 0 90" src="assets/marble.png" depth="30" height=".2" width="30" position="3.294 13.247 -6.548" geometry="depth:5.46;width:0.21;height:3.12"></a-box><a-box rotation="0 0 90" src="assets/marble.png" depth="30" height=".2" width="30" position="3.294 13.247 -1.017" geometry="depth:5.680000000000001;height:3.12;width:0.21"></a-box>
+            <a-obj-model material="" scale="0.03 0.03 0.03" position="6.936 11.03 -12.978" src="assets/chest-freezer.obj" mtl="assets/chest-freezer.mtl"></a-obj-model>
+        </a-entity>
+
+        <!-- Bar Counter Items -->
+        <a-obj-model material="" scale="0.005 0.005 0.005" rotation="270 -9.07 0" position="2.792 13.358 -12.378" src="assets/Jever_Beer.obj" mtl="assets/Jever_Beer.mtl"></a-obj-model>
+        <a-obj-model material="" scale="0.005 0.005 0.005" rotation="270 0 0" position="3.621 13.358 -0.744" src="assets/Jever_Beer.obj" mtl="assets/Jever_Beer.mtl"></a-obj-model>
+        <a-obj-model material="" scale="0.005 0.005 0.005" rotation="270 25 0" position="2.792 13.358 0" src="assets/Jever_Beer.obj" mtl="assets/Jever_Beer.mtl"></a-obj-model>
+
+        <!-- Bar Shelf Items -->
+        <a-entity>
+            <a-obj-model material="" scale="0.06 0.06 0.06" position="8.142 15.397 -1.195" src="assets/glasswear.obj" mtl="assets/glasswear.mtl"></a-obj-model>
+            <a-obj-model material="" scale="0.06 0.06 0.06" position="8.142 15.398 -0.575" src="assets/glasswear.obj" mtl="assets/glasswear.mtl"></a-obj-model>
+            <a-obj-model material="" scale="0.06 0.06 0.06" position="8.142 15.407 0" src="assets/glasswear.obj" mtl="assets/glasswear.mtl"></a-obj-model>
+            <a-obj-model obj-model="mtl:" material="opacity:0.8;color:#959595" scale="1.2 1.2 1.2" position="8.025 15.115 -4.032" src="assets/glass-a04.obj" mtl="assets/glass-a04.mtl"></a-obj-model>
+            <a-obj-model obj-model="mtl:" material="opacity:0.8;color:#959595;transparent:true" scale="1.2 1.2 1.2" position="8.052 15.115 -3.401" src="assets/glass-a04.obj" mtl="assets/glass-a04.mtl"></a-obj-model>
+            <a-obj-model obj-model="mtl:" material="opacity:0.8;color:#949494;transparent:true" scale="1.2 1.2 1.2" position="8.052 15.115 -2.78" src="assets/glass-a04.obj" mtl="assets/glass-a04.mtl"></a-obj-model>
+            <a-obj-model obj-model="mtl:" material="opacity:0.9;color:#4d6947;transparent:true" scale="0.3 0.3 0.3" position="8.091 15.027 -4.076" src="assets/wine.obj" mtl="assets/wine.mtl"></a-obj-model>
+            <a-obj-model material="" scale="0.3 0.3 0.3" position="8.091 15.027 -4.076" src="assets/wine.obj" mtl="assets/wine.mtl"></a-obj-model>
+            <a-obj-model material="" scale="0.005 0.005 0.005" rotation="270 -75 0" position="7.954 16.876 -11.157" src="assets/Jever_Beer.obj" mtl="assets/Jever_Beer.mtl"></a-obj-model>
+            <a-obj-model material="" scale="0.005 0.005 0.005" rotation="270 -75 0" position="7.957 16.854 -10.713" src="assets/Jever_Beer.obj" mtl="assets/Jever_Beer.mtl"></a-obj-model>
+            <a-obj-model material="" scale="0.005 0.005 0.005" rotation="270 -75 0" position="8.433 16.819 -10.536" src="assets/Jever_Beer.obj" mtl="assets/Jever_Beer.mtl"></a-obj-model>
+            <a-obj-model material="" scale="0.005 0.005 0.005" rotation="270 -75 0" position="8.433 16.853 -10.027" src="assets/Jever_Beer.obj" mtl="assets/Jever_Beer.mtl"></a-obj-model>
+            <a-obj-model material="" scale="0.005 0.005 0.005" rotation="270 -75 0" position="7.948 16.845 -10.25" src="assets/Jever_Beer.obj" mtl="assets/Jever_Beer.mtl"></a-obj-model>
+            <a-obj-model material="" scale="0.005 0.005 0.005" rotation="270 -75 0" position="8.433 16.842 -11.014" src="assets/Jever_Beer.obj" mtl="assets/Jever_Beer.mtl"></a-obj-model>
+            <a-obj-model obj-model="mtl:" material="color:#2d2d2d;transparent:true" scale="0.2 0.2 0.2" position="8.091 16.815 -8.088" src="assets/wine.obj" mtl="assets/wine.mtl"></a-obj-model>
+            <a-obj-model obj-model="mtl:" material="opacity:0.9;color:#6f222e;transparent:true" scale="0.25 0.25 0.25" position="7.845 16.807 -7.361" src="assets/wine.obj" mtl="assets/wine.mtl"></a-obj-model>
+        </a-entity>
+
+        <!-- Pool Table -->
+        <a-entity id="pool-table" position="0 12.241 0">
+            <a-box geometry="depth:0.8;height:1.02;width:5.65" position="-8.259 0.718 2.224" src="assets/finewood.jpg"></a-box>
+            <a-box geometry="depth:0.8;height:1.02;width:9.67" rotation="0 90 0" position="-11.005 0.718 6.652" src="assets/finewood.jpg"></a-box>
+            <a-box geometry="depth:0.8;height:1.02;width:9.67" rotation="0 90 0" position="-5.801 0.718 6.652" src="assets/finewood.jpg"></a-box>
+            <a-box geometry="depth:2.9400000000000004;height:2.69;width:5.39" rotation="0 90 0" position="-8.35 -0.954 6.652" src="assets/finewood.jpg"></a-box>
+            <a-box geometry="depth:0.8;height:1.02;width:5.65" position="-8.259 0.718 11.093" src="assets/finewood.jpg"></a-box>
+            <a-box geometry="depth:8;height:0.5;width:4.6" position="-8.295 0.694 6.677" color="green"></a-box>
+            <a-sphere geometry="radius:0.2" position="-7.902 1.115 3.73" color="white" radius="3" class="intersectable">
+                <a-animation begin="click" attribute="position" from="-7.902 1.115 3.73" to="-6.903 1.115 6.313" dur="1000"></a-animation>
+            </a-sphere>
+            <a-sphere geometry="radius:0.2" position="-9.012 1.115 6.66" color="yellow" radius="3" class="intersectable">
+                <a-animation begin="click" attribute="position" from="-9.012 1.115 6.66" to="-10.012 1.115 5.754" dur="1000"></a-animation>
+            </a-sphere>
+            <a-sphere geometry="radius:0.2" position="-8.058 1.115 7.984" color="red" radius="3" class="intersectable">
+                <a-animation begin="click" attribute="position" from="-8.058 1.115 7.984" to="-9.058 1.115 9.462" dur="1000"></a-animation>
+            </a-sphere>
+            <a-cylinder geometry="height:5.25;radius:0.08" material="" rotation="90 150 0" position="-10.019 1.302 3.274" src="assets/finewood.jpg"></a-cylinder>
+        </a-entity>
+
+        <!--Drumset-->
+        <a-obj-model id="drumset" src="assets/batterie.obj" mtl="assets/batterie.mtl" position="-9.448 10.111 -8.85" rotation="0 43.25831353237715 0" scale="0.05 0.05 0.05" material=""></a-obj-model>
+        <a-box geometry="height:5;depth:5;width:5" material="" visible="false" position="-10.61 12.609 -10.021" class="intersectable" sound="on:click;src:assets/drum.mp3"></a-box>
+
+        <!--Dart Game-->
+        <a-obj-model id="darts" src="assets/dart_game.obj" mtl="assets/dart_game.mtl" position="-2.784 16.405 -14.689" scale="0.06 0.06 0.06" material=""></a-obj-model>
+
+        <!-- Kitchen -->
+        <!-- Structure -->
+        <a-box material="" rotation="0 0 90" src="assets/marble.png" depth="30" height=".2" width="30" position="-25.362 2.951 11.844" geometry="width:0.21;height:2.95;depth:6.31"></a-box>
+        <a-box rotation="0 0 90" src="assets/marble.png" depth="30" height=".2" width="30" position="-25.362 2.951 2.873" geometry="depth:3.17;width:0.21;height:2.95"></a-box>
+        <a-box rotation="0 0 90" src="assets/marble.png" depth="30" height=".2" width="30" position="-25.476 2.951 -4.226" geometry="height:2.64;depth:3.5;width:0.21"></a-box>
+        <a-box rotation="0 0 90" src="assets/marble.png" depth="30" height=".2" width="30" position="-25.476 2.951 -7.732" geometry="width:0.21;height:2.64;depth:3.5"></a-box>
+        <a-box rotation="0 0 90" src="assets/marble.png" depth="30" height=".2" width="30" position="-25.476 2.951 -11.071" geometry="depth:3.23;width:0.21;height:2.64"></a-box>
+        <a-box rotation="0 90 90" src="assets/marble.png" depth="30" height=".2" width="30" position="-25.237 2.972 -13.706" geometry="depth:3.1600000000000006;width:0.21;height:2.1"></a-box><a-box rotation="0 90 90" src="assets/marble.png" depth="30" height=".2" width="30" position="-22.085 2.972 -13.706" geometry="width:0.21;height:2.1;depth:3.1600000000000006"></a-box><a-box rotation="0 90 90" src="assets/marble.png" depth="30" height=".2" width="30" position="-18.953 2.972 -13.706" geometry="depth:3.1600000000000006;height:2.1;width:0.21"></a-box><a-box rotation="0 90 90" src="assets/marble.png" depth="30" height=".2" width="30" position="-15.796 2.972 -13.706" geometry="depth:3.1600000000000006;height:2.1;width:0.21"></a-box><a-box rotation="0 0 90" src="assets/marble.png" depth="30" height=".2" width="30" position="-15.267 2.972 -11.095" geometry="depth:3.1600000000000006;height:2.1;width:0.21"></a-box><a-box rotation="0 0 90" src="assets/marble.png" depth="30" height=".2" width="30" position="-15.267 2.972 -7.933" geometry="depth:3.1600000000000006;height:2.1;width:0.21"></a-box><a-box rotation="0 0 90" src="assets/marble.png" depth="30" height=".2" width="30" position="-15.267 2.972 -4.769" geometry="depth:3.1600000000000006;height:2.1;width:0.21"></a-box><a-box rotation="0 0 90" src="assets/marble.png" depth="30" height=".2" width="30" position="-15.267 2.972 -1.613" geometry="depth:3.1600000000000006;height:2.1;width:0.21"></a-box><a-box rotation="0 0 90" src="assets/marble.png" depth="30" height=".2" width="30" position="-15.267 2.972 1.547" geometry="depth:3.1600000000000006;height:2.1;width:0.21"></a-box><a-box rotation="0 0 90" src="assets/marble.png" depth="30" height=".2" width="30" position="-15.267 2.972 5.183" geometry="depth:4.130000000000001;width:0.21;height:2.1"></a-box>
+        <!-- Cabinets -->
+        <a-entity>
+            <a-entity position="2.547 0 0">
+                <a-box geometry="depth:3.17;height:2.69;width:2.1" rotation="0 90 0" position="-19.363 1.549 -13.778" src="assets/finewood.jpg"></a-box>
+                <a-box geometry="depth:0.2899999999999999;height:1.3;width:0.05" position="-20.399 1.649 -12.817" color="black"></a-box>
+                <a-box geometry="depth:0.2899999999999999;height:1.3;width:0.05" position="-18.247 1.649 -12.817" color="black"></a-box>
+                <a-box geometry="depth:0.2899999999999999;height:2.18;width:0.05" rotation="0 0 90" position="-19.322 2.275 -12.817" color="black"></a-box>
+                <a-box geometry="depth:0.2899999999999999;height:2.18;width:0.05" rotation="0 0 90" position="-19.322 1.012 -12.817" color="black"></a-box>
+                <a-box geometry="depth:0.2899999999999999;height:0.3600000000000001;width:0.05" position="-18.509 1.645 -12.817" color="black"></a-box>
+            </a-entity>
+            <a-entity rotation="0 90 0" position="-11.584 0 -5.959">
+                <a-box geometry="depth:3.17;height:2.69;width:2.1" rotation="0 90 0" position="-19.363 1.549 -13.778" src="assets/finewood.jpg"></a-box>
+                <a-box geometry="depth:0.2899999999999999;height:1.3;width:0.05" position="-20.399 1.649 -12.817" color="black"></a-box>
+                <a-box geometry="depth:0.2899999999999999;height:1.3;width:0.05" position="-18.247 1.649 -12.817" color="black"></a-box>
+                <a-box geometry="depth:0.2899999999999999;height:2.18;width:0.05" rotation="0 0 90" position="-19.322 2.275 -12.817" color="black"></a-box>
+                <a-box geometry="depth:0.2899999999999999;height:2.18;width:0.05" rotation="0 0 90" position="-19.322 1.012 -12.817" color="black"></a-box>
+                <a-box geometry="depth:0.2899999999999999;height:0.3600000000000001;width:0.05" position="-18.509 1.645 -12.817" color="black"></a-box>
+            </a-entity>
+            <a-entity rotation="0 90 0" position="-11.563 0 -9.142">
+                <a-box material="" geometry="depth:3.17;height:2.69;width:2.1" rotation="0 90 0" position="-19.363 1.549 -13.778" src="assets/finewood.jpg"></a-box><a-box geometry="depth:3.17;height:2.69;width:2.1" rotation="0 90 0" position="-12.028 1.549 -13.778" src="assets/finewood.jpg"></a-box><a-box geometry="depth:10.08;height:2.69;width:2.1" rotation="0 90 0" position="-1.466 1.549 -14.223" src="assets/finewood.jpg"></a-box>
+                <a-box geometry="depth:0.2899999999999999;height:1.3;width:0.05" position="-20.399 1.649 -12.817" color="black"></a-box>
+                <a-box geometry="depth:0.2899999999999999;height:1.3;width:0.05" position="-18.247 1.649 -12.817" color="black"></a-box>
+                <a-box geometry="depth:0.2899999999999999;height:2.18;width:0.05" rotation="0 0 90" position="-19.322 2.275 -12.817" color="black"></a-box>
+                <a-box geometry="depth:0.2899999999999999;height:2.18;width:0.05" rotation="0 0 90" position="-19.322 1.012 -12.817" color="black"></a-box>
+                <a-box geometry="depth:0.2899999999999999;height:0.3600000000000001;width:0.05" position="-18.509 1.645 -12.817" color="black"></a-box>
+            </a-entity>
+            <a-entity position="-0.623 0 0">
+                <a-box geometry="depth:3.17;height:2.69;width:2.1" rotation="0 90 0" position="-19.382 1.549 -13.778" src="assets/finewood.jpg"></a-box>
+                <a-box geometry="depth:0.2899999999999999;height:1.3;width:0.05" position="-20.399 1.649 -12.817" color="black"></a-box>
+                <a-box geometry="depth:0.2899999999999999;height:1.3;width:0.05" position="-18.247 1.649 -12.817" color="black"></a-box>
+                <a-box geometry="depth:0.2899999999999999;height:2.18;width:0.05" rotation="0 0 90" position="-19.322 2.275 -12.817" color="black"></a-box>
+                <a-box geometry="depth:0.2899999999999999;height:2.18;width:0.05" rotation="0 0 90" position="-19.322 1.012 -12.817" color="black"></a-box>
+                <a-box geometry="depth:0.2899999999999999;height:0.3600000000000001;width:0.05" position="-18.509 1.645 -12.817" color="black"></a-box>
+            </a-entity>
+            <a-entity position="-3.92 0 0">
+                <a-box geometry="depth:3.17;height:2.69;width:2.1" rotation="0 90 0" position="-19.268 1.549 -13.778" src="assets/finewood.jpg"></a-box>
+                <a-box geometry="depth:0.2899999999999999;height:1.3;width:0.05" position="-20.399 1.649 -12.817" color="black"></a-box>
+                <a-box geometry="depth:0.2899999999999999;height:1.3;width:0.05" position="-18.247 1.649 -12.817" color="black"></a-box>
+                <a-box geometry="depth:0.2899999999999999;height:2.18;width:0.05" rotation="0 0 90" position="-19.322 2.275 -12.817" color="black"></a-box>
+                <a-box geometry="depth:0.2899999999999999;height:2.18;width:0.05" rotation="0 0 90" position="-19.322 1.012 -12.817" color="black"></a-box>
+                <a-box geometry="depth:0.2899999999999999;height:0.3600000000000001;width:0.05" position="-18.509 1.645 -12.817" color="black"></a-box>
+            </a-entity>
+        </a-entity>
+        <!-- Kitchen Items -->
+        <a-obj-model material="" scale="0.06 0.06 0.06" rotation="0 90 0" position="-22.413 -2.273 -2.5" src="assets/hood.obj" mtl="assets/hood.mtl"></a-obj-model>
+        <a-obj-model material="" scale="0.08 0.08 0.08" rotation="0 220 0" position="-26.152 3.131 13.523" src="assets/espressokettle.obj" mtl="assets/espressokettle.mtl"></a-obj-model>
+        <a-obj-model material="" scale="0.04 0.038 0.04" rotation="0 90 0" position="-25.122 0 5.001" src="assets/largeStove.obj" mtl="assets/largeStove.mtl"></a-obj-model>
+        <a-obj-model material="" scale="0.05 0.05 0.05" rotation="0 90 0" position="-22.451 0 1.547" src="assets/kitchenTools.obj" mtl="assets/kitchenTools.mtl"></a-obj-model>
+        <a-obj-model material="" scale="0.06 0.06 0.06" rotation="0 90 0" position="-16.711 -0.421 -14.009" src="assets/microwave.obj" mtl="assets/microwave.mtl"></a-obj-model>
+        <a-obj-model material="" scale="0.04 0.036 0.04" rotation="0 90 0" position="-25.101 0 -0.58" src="assets/kitchenSink.obj" mtl="assets/kitchenSink.mtl"></a-obj-model>
+
+        <!--Bedroom-->
+        <!--Cat-->
+        <a-obj-model id="cat" src="assets/siameseCat.obj" mtl="assets/siameseCat.mtl" position="26.518 0.114 -8.774" rotation="0 -90 0" scale="0.05 0.05 0.05" material=""></a-obj-model>
+        <a-box geometry="depth:5;height:5;width:5" material="" visible="false" position="27.064 0.656 -8.122" class="intersectable" sound="on:click;src:assets/Cat-meow-1.mp3" scale="1.035 0.668 0.673"></a-box>
+        <!--Bedroom Items-->
+        <a-obj-model id="bedroom-light" src="assets/hangingLight.obj" mtl="assets/hangingLight.mtl" position="24.928 10.918 -0.815" scale="0.1 0.1 0.1" material=""></a-obj-model>
+        <a-obj-model id="bed" src="assets/letto.obj" mtl="assets/letto.mtl" position="43.406 0.108 -5.836" rotation="0 -90 0" scale="0.05 0.05 0.05" material=""></a-obj-model>
+        <a-obj-model id="bedroom-painting" src="assets/frame_horizontal.obj" mtl="assets/frame_horizontal.mtl" position="38.75 5.051 -0.221" rotation="0 -90 0" scale="0.05 0.05 0.05" material=""></a-obj-model>
+        <a-obj-model id="bedside-table-1" src="assets/meubleChevet.obj" mtl="assets/meubleChevet.mtl" position="36.627 2.246 -6.621" rotation="0 -90 0" scale="0.07 0.07 0.07" material="" obj-model=""></a-obj-model>
+        <a-obj-model id="bedside-table-2" src="assets/meubleChevet.obj" mtl="assets/meubleChevet.mtl" position="36.627 2.246 5.773" rotation="0 -90 0" scale="0.07 0.07 0.07" material=""></a-obj-model>
+        <a-obj-model id="flowers-1" src="assets/flowers.obj" mtl="assets/flowers.mtl" position="46.102 5.432 -0.78" scale="0.05 0.05 0.05" material="" obj-model=""></a-obj-model>
+        <a-obj-model id="flowers-2" src="assets/flowers.obj" mtl="assets/flowers.mtl" position="46.102 5.432 11.736" scale="0.05 0.05 0.05" material=""></a-obj-model>
+        <a-obj-model id="armoire" src="assets/armoireLotus.obj" mtl="assets/armoireLotus.mtl" position="31.029 4.42 11.582" rotation="0 180 0" scale="0.04 0.04 0.04" material="" obj-model=""></a-obj-model>
+        <a-entity id="television-2" position="23.925 0 2.79" rotation="0 180 0"><a-box color="#000000" position="8.831 5.776 3.784" geometry="depth:8.46;height:4.6;width:0.15" class="intersectable">
+            <a-animation begin="click" attribute="material.color" from="black" to="white" dur="2400"></a-animation>
+        </a-box>
+            <a-box color="#000000" position="8.81 8.13 3.78" material="color:#696969" geometry="depth:8.49;height:0.14;width:0.15"></a-box>
+            <a-box color="#000000" position="8.81 5.838 7.953" rotation="90 0 0" material="color:#696969" geometry="depth:4.6;height:0.14;width:0.15"></a-box>
+            <a-box color="#000000" position="8.81 5.796 -0.391" rotation="90 0 0" material="color:#696969" geometry="depth:4.6;height:0.14;width:0.15"></a-box>
+            <a-box color="#000000" position="8.81 3.551 3.781" material="color:#696969" geometry="depth:8.49;height:0.14;width:0.15"></a-box>
+        </a-entity>
+
+    </a-scene>
+</body>
+</html>
