@@ -9,22 +9,25 @@
       padding: 0;
       height: 100vh;
       font-family: 'Segoe UI', sans-serif;
-      background: url('s.jpg') no-repeat center center fixed;
-      background-size: cover;
-      color: white;
+      background: linear-gradient(135deg, #e6e6fa, #f2e6ff); /* Soft gradient background */
+      color: #3a0ca3; /* Purple text */
       position: relative;
     }
 
     .header {
       position: absolute;
       top: 20px;
-      left: 30px;
-      font-size: 3rem;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 3.5rem;
       font-weight: bold;
-      background: rgba(0, 0, 0, 0.5);
+      background: #ffffff; /* White background */
       padding: 10px 25px;
       border-radius: 10px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+      color: #9b59b6; /* Lavender text */
+      text-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Soft shadow for text */
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Light shadow around the header */
+      border-bottom: 5px solid #9b59b6; /* Subtle lavender border at the bottom */
     }
 
     .saved-container {
@@ -41,12 +44,17 @@
     }
 
     .saved-item {
-      background: rgba(0, 0, 0, 0.6);
+      background: rgba(255, 255, 255, 0.85); /* Soft white background */
       padding: 15px;
       border-radius: 12px;
       text-align: center;
       width: 250px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease;
+    }
+
+    .saved-item:hover {
+      transform: scale(1.05); /* Slight zoom effect on hover */
     }
 
     .saved-item img {
@@ -112,14 +120,14 @@
     const savedItems = JSON.parse(localStorage.getItem("favorites")) || [];
 
     if (savedItems.length === 0) {
-      container.innerHTML = "<p style='color:white;'>No saved destinations yet.</p>";
+      container.innerHTML = "<p style='color:#3a0ca3;'>No saved destinations yet.</p>";
     } else {
       savedItems.forEach(item => {
         const div = document.createElement("div");
         div.className = "saved-item";
         div.innerHTML = `
           <img src="${item.image}" alt="${item.description}" onclick="openDestination('${item.image}', '${item.description}')">
-          <p>${item.description}</p>
+          <p style="color: #6a0dad;">${item.description}</p>
         `;
         container.appendChild(div);
       });
@@ -127,19 +135,7 @@
 
     function openDestination(image, description) {
       localStorage.setItem("currentDestination", JSON.stringify({ image, description }));
-      window.location.href = "Page1.html";
-    }
-    function openDestination(image, description) {
-      localStorage.setItem("currentDestination", JSON.stringify({ image, description }));
-      window.location.href = "Page2.html";
-    }
-    function openDestination(image, description) {
-      localStorage.setItem("currentDestination", JSON.stringify({ image, description }));
-      window.location.href = "Page3.html";
-    }
-    function openDestination(image, description) {
-      localStorage.setItem("currentDestination", JSON.stringify({ image, description }));
-      window.location.href = "Page4.html";
+      window.location.href = "Page1.html";  // You can change this based on the page you want to redirect to
     }
 
     function removeSaved() {
