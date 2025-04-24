@@ -137,7 +137,7 @@
 
       <div class="password-container">
         <input type="password" placeholder="Password" id="loginPassword" required />
-        <span class="toggle-password" onclick="togglePassword('loginPassword', this)">👁️</span>
+        <span class="toggle-password" onclick="togglePassword('loginPassword', this)">👁</span>
       </div>
 
       <button onclick="submitLogin()">Submit</button>
@@ -153,7 +153,12 @@
 
       <div class="password-container">
         <input type="password" placeholder="Create Password" id="regPassword" required />
-        <span class="toggle-password" onclick="togglePassword('regPassword', this)">👁️</span>
+        <span class="toggle-password" onclick="togglePassword('regPassword', this)">👁</span>
+      </div>
+
+      <div class="password-container">
+        <input type="password" placeholder="Confirm Password" id="regConfirmPassword" required />
+        <span class="toggle-password" onclick="togglePassword('regConfirmPassword', this)">👁</span>
       </div>
 
       <button onclick="submitRegister()">Submit</button>
@@ -166,7 +171,7 @@
     function toggleForm() {
       const form = document.getElementById('formContainer');
       form.style.display = form.style.display === 'block' ? 'none' : 'block';
-      showLogin();
+      showLogin(); // Always show login first
     }
 
     function showRegister() {
@@ -183,10 +188,10 @@
       const field = document.getElementById(fieldId);
       const isPassword = field.type === "password";
       field.type = isPassword ? "text" : "password";
-      icon.textContent = isPassword ? "🙈" : "👁️";
+      icon.textContent = isPassword ? "🙈" : "👁";
     }
 
-    async function submitLogin() {
+    function submitLogin() {
       const name = document.getElementById('loginName').value;
       const password = document.getElementById('loginPassword').value;
 
@@ -195,45 +200,32 @@
         return;
       }
 
-      const response = await fetch('/api/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, password })
-      });
-
-      const data = await response.json();
-      if (response.ok) {
-        alert(data.message);
-        window.location.href = "secondpage.html";
-      } else {
-        alert(data.message);
-      }
+      window.location.href = "secondpage.html"; // Redirect after successful login
     }
 
-    async function submitRegister() {
+    function submitRegister() {
       const name = document.getElementById('regName').value;
       const email = document.getElementById('regEmail').value;
       const phone = document.getElementById('regPhone').value;
-      const password = document.getElementById('regPassword').value;
+      const pass = document.getElementById('regPassword').value;
+      const confirmPass = document.getElementById('regConfirmPassword').value;
 
-      if (!name || !email || !phone || !password) {
+      if (!name || !email || !phone || !pass || !confirmPass) {
         alert('Please fill in all the fields.');
         return;
       }
 
-      const response = await fetch('/api/register', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, email, phone, password })
-      });
-
-      const data = await response.json();
-      if (response.ok) {
-        alert(data.message);
-        window.location.href = "second.html";
-      } else {
-        alert(data.message);
+      if (pass !== confirmPass) {
+        alert('Passwords do not match.');
+        return;
       }
+
+      // Save to localStorage
+      localStorage.setItem('name', name);
+      localStorage.setItem('email', email);
+      localStorage.setItem('phone', phone);
+
+      window.location.href = "secondpage.html"; // Redirect after successful registration
     }
   </script>
 
