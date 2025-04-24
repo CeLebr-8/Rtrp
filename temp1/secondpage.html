@@ -8,29 +8,23 @@
   <style>
     body {
       margin: 0;
-      padding: 0;
-      height: 100vh;
+      padding-top: 60px; /* Reduced from 150px to eliminate extra space */
       background: linear-gradient(135deg, #f3e8ff, #e5d5f6);
       font-family: 'Poppins', sans-serif;
       color: #4b3869;
       display: flex;
-      justify-content: center;
-      align-items: center;
       flex-direction: column;
+      align-items: center;
       position: relative;
-      overflow: hidden;
       text-align: center;
+      overflow-y: auto; /* Enable vertical scroll */
+      min-height: 100vh;
     }
 
     .welcome-text {
       font-size: 4.5rem;
       font-weight: 700;
-      position: absolute;
-      top: 40px;
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      align-items: center;
+      margin-bottom: 40px;
       color: #7e57c2;
       animation: fadeInDown 1s ease;
     }
@@ -57,6 +51,7 @@
     .help-box {
       width: 100%;
       animation: fadeInUp 1.5s ease;
+      margin-bottom: 60px;
     }
 
     .help-box h3 {
@@ -91,8 +86,8 @@
     }
 
     .logout-button {
-      position: absolute;
-      top: 40px;
+      position: fixed;
+      top: 30px;
       right: 40px;
       padding: 14px 28px;
       font-size: 1.2rem;
@@ -134,6 +129,8 @@
 </head>
 <body>
 
+  <button class="logout-button" onclick="logout()">Logout</button>
+
   <div class="welcome-text">
     Welcome... <span class="home-icon">🏠</span>
   </div>
@@ -150,8 +147,6 @@
       <button onclick="window.location.href = 'saved.html'">SAVED</button>
     </div>
   </div>
-
-  <button class="logout-button" onclick="logout()">Logout</button>
 
   <script>
     function logout() {
