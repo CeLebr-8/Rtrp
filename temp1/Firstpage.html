@@ -156,11 +156,6 @@
         <span class="toggle-password" onclick="togglePassword('regPassword', this)">👁️</span>
       </div>
 
-      <div class="password-container">
-        <input type="password" placeholder="Confirm Password" id="regConfirmPassword" required />
-        <span class="toggle-password" onclick="togglePassword('regConfirmPassword', this)">👁️</span>
-      </div>
-
       <button onclick="submitRegister()">Submit</button>
       <p>Already have an account? <a onclick="showLogin()">Login here</a></p>
     </div>
@@ -171,7 +166,7 @@
     function toggleForm() {
       const form = document.getElementById('formContainer');
       form.style.display = form.style.display === 'block' ? 'none' : 'block';
-      showLogin(); // Always show login first
+      showLogin();
     }
 
     function showRegister() {
@@ -191,7 +186,7 @@
       icon.textContent = isPassword ? "🙈" : "👁️";
     }
 
-    function submitLogin() {
+    async function submitLogin() {
       const name = document.getElementById('loginName').value;
       const password = document.getElementById('loginPassword').value;
 
@@ -200,32 +195,45 @@
         return;
       }
 
-      window.location.href = "secondpage.html"; // Redirect after successful login
+      const response = await fetch('/api/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, password })
+      });
+
+      const data = await response.json();
+      if (response.ok) {
+        alert(data.message);
+        window.location.href = "secondpage.html";
+      } else {
+        alert(data.message);
+      }
     }
 
-    function submitRegister() {
+    async function submitRegister() {
       const name = document.getElementById('regName').value;
       const email = document.getElementById('regEmail').value;
       const phone = document.getElementById('regPhone').value;
-      const pass = document.getElementById('regPassword').value;
-      const confirmPass = document.getElementById('regConfirmPassword').value;
+      const password = document.getElementById('regPassword').value;
 
-      if (!name || !email || !phone || !pass || !confirmPass) {
+      if (!name || !email || !phone || !password) {
         alert('Please fill in all the fields.');
         return;
       }
 
-      if (pass !== confirmPass) {
-        alert('Passwords do not match.');
-        return;
+      const response = await fetch('/api/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, phone, password })
+      });
+
+      const data = await response.json();
+      if (response.ok) {
+        alert(data.message);
+        window.location.href = "second.html";
+      } else {
+        alert(data.message);
       }
-
-      // Save to localStorage
-      localStorage.setItem('name', name);
-      localStorage.setItem('email', email);
-      localStorage.setItem('phone', phone);
-
-      window.location.href = "secondpage.html"; // Redirect after successful registration
     }
   </script>
 
