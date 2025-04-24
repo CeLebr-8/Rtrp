@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+\<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -51,10 +51,7 @@
       transition: color 0.3s ease;
     }
 
-    .heart-icon:hover {
-      color: red;
-    }
-
+    .heart-icon:hover,
     .heart-icon.active {
       color: red;
     }
@@ -118,14 +115,39 @@
   <button class="vr-button" id="vrButton">View on VR</button>
 
 <script>
-    // Add this to your existing script
-    document.getElementById('vrButton').addEventListener('click', () => {
-        // For local development
-        window.open('../Project1/index.html', '_blank');
-        
-        // For GitHub Pages (uncomment when deploying)
-        window.open('/Project1/', '_blank');
-    });
+  // Save to favorites
+  const saveButton = document.getElementById('saveHeart');
+  const image = document.getElementById('destinationImage');
+  const desc = document.getElementById('desc');
+
+  // Toggle heart and save
+  saveButton.addEventListener('click', () => {
+    saveButton.classList.toggle('active');
+    const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+
+    const newFavorite = {
+      image: image.getAttribute('src'),
+      description: desc.value || 'No description'
+    };
+
+    const exists = favorites.some(fav => fav.image === newFavorite.image);
+
+    if (!exists) {
+      favorites.push(newFavorite);
+      localStorage.setItem('favorites', JSON.stringify(favorites));
+      alert('Added to favorites!');
+    } else {
+      alert('Already in favorites.');
+    }
+  });
+
+  // VR button
+  document.getElementById('vrButton').addEventListener('click', () => {
+    // For local development
+    window.open('../Project1/index.html', '_blank');
+    // For GitHub Pages
+    // window.open('/Project1/', '_blank');
+  });
 </script>
 
 </body>

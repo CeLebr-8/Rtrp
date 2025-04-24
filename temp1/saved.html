@@ -9,30 +9,46 @@
       padding: 0;
       height: 100vh;
       font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(135deg, #e6e6fa, #f2e6ff); /* Soft gradient background */
-      color: #3a0ca3; /* Purple text */
+      background: linear-gradient(135deg, #e6e6fa, #f2e6ff);
+      color: #3a0ca3;
       position: relative;
     }
 
+    /* Header Style */
     .header {
       position: absolute;
       top: 20px;
       left: 50%;
       transform: translateX(-50%);
-      font-size: 3.5rem;
+      font-size: 4.5rem; /* Increased font size */
       font-weight: bold;
-      background: #ffffff; /* White background */
-      padding: 10px 25px;
-      border-radius: 10px;
-      color: #9b59b6; /* Lavender text */
-      text-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Soft shadow for text */
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Light shadow around the header */
-      border-bottom: 5px solid #9b59b6; /* Subtle lavender border at the bottom */
+      background: #ffffff;
+      padding: 15px 30px;
+      border-radius: 12px;
+      color: #9b59b6;
+      text-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      border-bottom: 5px solid #9b59b6;
+      text-align: center;
+      animation: slideIn 1s ease-out; /* Added animation */
     }
 
+    /* Header Animation */
+    @keyframes slideIn {
+      0% {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-30px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+      }
+    }
+
+    /* Saved Items Container */
     .saved-container {
       position: absolute;
-      top: 120px;
+      top: 160px; /* Adjusted to leave space below the header */
       left: 50%;
       transform: translateX(-50%);
       max-width: 900px;
@@ -41,10 +57,23 @@
       flex-wrap: wrap;
       gap: 20px;
       justify-content: center;
+      opacity: 0;
+      animation: fadeIn 1s 1s forwards; /* Fade-in effect for the saved items */
     }
 
+    /* Fade-in animation for the saved items */
+    @keyframes fadeIn {
+      0% {
+        opacity: 0;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
+
+    /* Individual Saved Item Styling */
     .saved-item {
-      background: rgba(255, 255, 255, 0.85); /* Soft white background */
+      background: rgba(255, 255, 255, 0.85);
       padding: 15px;
       border-radius: 12px;
       text-align: center;
@@ -54,7 +83,7 @@
     }
 
     .saved-item:hover {
-      transform: scale(1.05); /* Slight zoom effect on hover */
+      transform: scale(1.05);
     }
 
     .saved-item img {
@@ -64,6 +93,7 @@
       cursor: pointer;
     }
 
+    /* Button Container Styling */
     .button-container {
       position: absolute;
       bottom: 30px;
@@ -91,15 +121,6 @@
     .btn-remove:hover {
       background-color: #c0392b;
     }
-
-    .btn-vr {
-      background-color: #27ae60;
-      color: white;
-    }
-
-    .btn-vr:hover {
-      background-color: #1e8449;
-    }
   </style>
 </head>
 <body>
@@ -112,7 +133,6 @@
 
   <div class="button-container">
     <button class="btn btn-remove" onclick="removeSaved()">Remove from Saved</button>
-    <button class="btn btn-vr" onclick="viewInVR()">View in VR</button>
   </div>
 
   <script>
@@ -135,17 +155,13 @@
 
     function openDestination(image, description) {
       localStorage.setItem("currentDestination", JSON.stringify({ image, description }));
-      window.location.href = "Page1.html";  // You can change this based on the page you want to redirect to
+      window.location.href = "Page1.html";
     }
 
     function removeSaved() {
       localStorage.removeItem("favorites");
       alert("All saved items removed.");
       location.reload();
-    }
-
-    function viewInVR() {
-      alert("Launching VR view...");
     }
   </script>
 
