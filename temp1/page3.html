@@ -17,8 +17,8 @@
     h1 {
       font-size: 2.5em;
       margin-bottom: 20px;
-      color: black; /* Changed to black */
-      text-shadow: none; /* Removed shadow */
+      color: black;
+      text-shadow: none;
     }
 
     .image-container {
@@ -101,53 +101,47 @@
     <p id="desc">🏙️ Azure Heights - Elegant Villa in Miyapur
       Experience contemporary living at Azure Heights, a stylish villa enclave located in the rapidly developing area of Miyapur, Hyderabad. With thoughtfully designed spaces and seamless access to essential amenities, Azure Heights is an ideal choice for families seeking both comfort and connectivity.</p>
       
-     <p> Property Highlights:</p>
-      
-     <p>📍 Location: Miyapur, Hyderabad</p> 
-      
-     <p>💰 Price: Approx. ₹2 Crores</p> 
-      
-     <p>🏡 Modern architecture with spacious layouts</p>
-      
-     <p>🚇 Close to metro stations, schools, and shopping centers</p>
-      
-     <p></p> 🛣️ Well-connected to IT corridors and main roads</p>
+    <p>Property Highlights:</p>
+    <p>📍 Location: Miyapur, Hyderabad</p> 
+    <p>💰 Price: Approx. ₹2 Crores</p> 
+    <p>🏡 Modern architecture with spacious layouts</p>
+    <p>🚇 Close to metro stations, schools, and shopping centers</p>
+    <p>🛣️ Well-connected to IT corridors and main roads</p>
   </div>
 
   <button class="vr-button" id="vrButton">View on VR</button>
 
-<script>
-  // Save to favorites
-  const saveButton = document.getElementById('saveHeart');
-  const image = document.getElementById('destinationImage');
-  const desc = document.getElementById('desc');
+  <script>
+    const saveButton = document.getElementById('saveHeart');
+    const image = document.getElementById('destinationImage');
+    const desc = document.getElementById('desc');
+    const villaName = document.querySelector('h1').textContent;
 
-  // Toggle heart and save
-  saveButton.addEventListener('click', () => {
-    saveButton.classList.toggle('active');
-    const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+    saveButton.addEventListener('click', () => {
+      saveButton.classList.toggle('active');
+      const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
 
-    const newFavorite = {
-      image: image.getAttribute('src'),
-      description: desc.textContent || 'No description'
-    };
+      const newFavorite = {
+        image: image.getAttribute('src'),
+        name: villaName,
+        description: desc.textContent || 'No description'
+      };
 
-    const exists = favorites.some(fav => fav.image === newFavorite.image);
+      const exists = favorites.some(fav => fav.image === newFavorite.image);
 
-    if (!exists) {
-      favorites.push(newFavorite);
-      localStorage.setItem('favorites', JSON.stringify(favorites));
-      alert('Added to favorites!');
-    } else {
-      alert('Already in favorites.');
-    }
-  });
+      if (!exists) {
+        favorites.push(newFavorite);
+        localStorage.setItem('favorites', JSON.stringify(favorites));
+        alert('Added to favorites!');
+      } else {
+        alert('Already in favorites.');
+      }
+    });
 
-  // VR button
-  document.getElementById('vrButton').addEventListener('click', () => {
-    window.open('../Project1/index.html', '_blank');
-  });
-</script>
+    document.getElementById('vrButton').addEventListener('click', () => {
+      window.open('../Project1/index.html', '_blank');
+    });
+  </script>
 
 </body>
 </html>
