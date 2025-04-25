@@ -1,14 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <script src="https://aframe.io/releases/0.7.0/aframe.min.js"></script>
+  
     <script src="https://cdn.rawgit.com/donmccurdy/aframe-extras/v1.14.0/dist/aframe-extras.min.js"></script>
     <script src="https://rawgit.com/feiss/aframe-environment-component/master/dist/aframe-environment-component.min.js"></script>
     <script>
         lightOff = false;
     </script>
+    <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
+
 </head>
 <body>
+    <input type="color" id="fanColor" style="position: fixed; top: 20px; right: 20px; display: none;" />
+
     <a-scene>
         <a-assets>
             <img id = "wood" src = "assets/hardwood.jpg">
@@ -22,10 +26,15 @@
 
         <a-entity position="0 2.7 0">
             <a-camera id="cam" universal-controls>
-
-                <a-entity raycaster="far: 8; objects: .intersectable" cursor geometry="primitive: ring; radiusOuter: 0.015;
-                              radiusInner: 0.01; segmentsTheta: 32" material="color: #283644; shader: flat" position="0 0 -0.75"></a-entity>
-            </a-camera>
+                <a-entity 
+                  cursor="rayOrigin: mouse" 
+                  raycaster="objects: .clickable" 
+                  position="0 0 -0.75"
+                  geometry="primitive: ring; radiusOuter: 0.015; radiusInner: 0.01; segmentsTheta: 32"
+                  material="color: #283644; shader: flat">
+                </a-entity>
+              </a-camera>
+              
         </a-entity>
 
         <!-- Buttons for moving up/down stairs -->
@@ -175,9 +184,16 @@
         </a-entity>
 
         <!-- Ceiling Items -->
-        <a-obj-model rotation="0 50 0" material="" scale="0.05 0.05 0.05" position="-0.351 7.565 3.703" src="assets/fan.obj" mtl="assets/fan.mtl">
-            <a-animation begin="click" to="0 360 0" dur="2400"></a-animation>
-        </a-obj-model>
+        <a-obj-model 
+        id="fanModel" 
+        class="clickable"
+        rotation="0 50 0" 
+        scale="0.05 0.05 0.05" 
+        position="-0.351 7.565 3.703" 
+        src="assets/fan.obj"
+        material="color: gray">
+      </a-obj-model>
+      
         <a-obj-model material="" scale="0.7 0.7 0.7" rotation="90 0 0" position="0 9.765 8.606" src="assets/track-lights.obj" mtl="assets/track-lights.mtl"></a-obj-model>
         <a-obj-model material="" scale="0.7 0.7 0.7" rotation="90 180 0" position="0 9.765 -1.513" src="assets/track-lights.obj" mtl="assets/track-lights.mtl"></a-obj-model>
 
@@ -363,5 +379,20 @@
         </a-entity>
 
     </a-scene>
+    <script>
+        const fan = document.querySelector('#fanModel');
+        const colorInput = document.querySelector('#fanColor');
+      
+        fan.addEventListener('click', () => {
+          colorInput.style.display = 'block';
+          colorInput.click();
+        });
+      
+        colorInput.addEventListener('input', (e) => {
+          const color = e.target.value;
+          fan.setAttribute('material', 'color', color);
+        });
+      </script>
+      
 </body>
 </html>
