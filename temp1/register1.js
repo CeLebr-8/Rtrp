@@ -21,7 +21,7 @@
 
 // Intercept Login button click
 window.submitLogin = function () {
-  const email = document.getElementById('loginName').value;
+  const email = document.getElementById('loginEmail').value;
   const password = document.getElementById('loginPassword').value;
 
   if (!email || !password) {
