@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+\<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -14,18 +14,11 @@
       align-items: center;
     }
 
-
     h1 {
-      font-family: Arial, sans-serif;
-      color : white;
-      /* max-width: 200px; */
-      /* background-color: aqua; */
-      padding : 15px;
-      border: 3px solid ;
-      border-radius: 30px;
-      border-color: black;
       font-size: 2.5em;
       margin-bottom: 20px;
+      color: white;
+      text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
     }
 
     .image-container {
@@ -40,6 +33,7 @@
       height: auto;
       border-radius: 12px;
       display: block;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
     }
 
     .heart-icon {
@@ -53,10 +47,11 @@
       border-radius: 50%;
       padding: 8px;
       cursor: pointer;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
       transition: color 0.3s ease;
     }
 
+    .heart-icon:hover,
     .heart-icon.active {
       color: red;
     }
@@ -73,6 +68,8 @@
       font-weight: bold;
       margin-bottom: 8px;
       font-size: 1.1em;
+      color: white;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
     }
 
     .description-box textarea {
@@ -88,7 +85,7 @@
     .vr-button {
       padding: 12px 24px;
       font-size: 1em;
-      color: #fff;
+      color: white;
       background-color: yellowgreen;
       border: none;
       border-radius: 6px;
@@ -97,13 +94,13 @@
     }
 
     .vr-button:hover {
-      background-color: #0056b3;
+      background-color: darkolivegreen;
     }
   </style>
 </head>
 <body>
 
-  <h1>Page 2</h1>
+  <h1>Sunset Ridge</h1>
 
   <div class="image-container">
     <img src="b2.jpg" alt="Destination 1" id="destinationImage">
@@ -115,47 +112,43 @@
     <textarea id="desc" placeholder="Write your thoughts or notes about this destination..."></textarea>
   </div>
 
-  <button class="vr-button">View on VR</button>
+  <button class="vr-button" id="vrButton">View on VR</button>
 
-  <script>
-    // Load data from previous click (if any)
-    let current = JSON.parse(localStorage.getItem("currentDestination"));
-    const imageEl = document.getElementById("destinationImage");
-    const titleEl = document.querySelector("h1");
+<script>
+  // Save to favorites
+  const saveButton = document.getElementById('saveHeart');
+  const image = document.getElementById('destinationImage');
+  const desc = document.getElementById('desc');
 
-    let imageSrc = "ss.jpg"; // default
-    let description = "Destination 1";
+  // Toggle heart and save
+  saveButton.addEventListener('click', () => {
+    saveButton.classList.toggle('active');
+    const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
 
-    if (current) {
-      imageSrc = current.image;
-      description = current.description;
-      imageEl.setAttribute("src", imageSrc);
-      titleEl.textContent = description;
+    const newFavorite = {
+      image: image.getAttribute('src'),
+      description: desc.value || 'No description'
+    };
+
+    const exists = favorites.some(fav => fav.image === newFavorite.image);
+
+    if (!exists) {
+      favorites.push(newFavorite);
+      localStorage.setItem('favorites', JSON.stringify(favorites));
+      alert('Added to favorites!');
+    } else {
+      alert('Already in favorites.');
     }
+  });
 
-    const heart = document.getElementById('saveHeart');
-
-    // Check if already saved
-    const savedItems = JSON.parse(localStorage.getItem("favorites")) || [];
-    const isSaved = savedItems.some(item => item.image === imageSrc);
-    if (isSaved) heart.classList.add('active');
-
-    heart.addEventListener('click', () => {
-      let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
-
-      if (heart.classList.contains('active')) {
-        // Remove
-        favorites = favorites.filter(item => item.image !== imageSrc);
-        heart.classList.remove('active');
-      } else {
-        // Add
-        favorites.push({ image: imageSrc, description });
-        heart.classList.add('active');
-      }
-
-      localStorage.setItem("favorites", JSON.stringify(favorites));
-    });
-  </script>
+  // VR button
+  document.getElementById('vrButton').addEventListener('click', () => {
+    // For local development
+    window.open('../Project1/index.html', '_blank');
+    // For GitHub Pages
+    // window.open('/Project1/', '_blank');
+  });
+</script>
 
 </body>
 </html>
