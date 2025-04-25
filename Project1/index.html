@@ -229,11 +229,11 @@
          <a-obj-model src="assets/salontafel.obj" mtl="assets/salontafel.mtl" id="coffee-table" position="0.209 0.241 5.814" rotation="0 180 0" scale="0.05 0.05 0.05" material=""></a-obj-model>
          
          <!--Side Tables-->
-         <a-obj-model src="assets/petiteTableSalon.obj" id="side-table-1" position="-8.718 0.124 9.057" rotation="0 180 0" scale="0.05 0.05 0.05" material="color:#804000" obj-model=""></a-obj-model>
+         <a-obj-model src="assets/petiteTableSalon.obj" id="side-table-1" position="-8.718 0.124 9.057" rotation="0 180 0" scale="0.05 0.05 0.03" material="color:#804000" obj-model=""></a-obj-model>
          <a-obj-model src="assets/petiteTableSalon.obj" id="side-table-2" position="-8.718 0.124 -1.564" rotation="0 180 0" scale="0.05 0.05 0.05" material="color:#804000"></a-obj-model>
         
          <!--Lamps-->
-         <a-obj-model src="assets/deskLamp1.obj" mtl="assets/deskLamp1.mtl" id="lamp-1" position="-9.993 2.854 8.186" scale="0.05 0.05 0.05" material="" obj-model=""></a-obj-model>
+         <a-obj-model src="assets/deskLamp1.obj" id="lamp-1" position="-9.993 2.854 8.186" scale="0.05 0.05 0.05" class="clickable" material="" obj-model=""></a-obj-model>
          <a-obj-model src="assets/deskLamp1.obj" mtl="assets/deskLamp1.mtl" id="lamp-2" position="-9.993 2.854 -2.602" scale="0.05 0.05 0.05" material=""></a-obj-model>
 
          <!--Entertainment Center-->
@@ -382,18 +382,26 @@
     </a-scene>
     <script>
         const fan = document.querySelector('#fanModel');
-        const colorInput = document.querySelector('#fanColor');
+        const lamp = document.querySelector('#lamp-1');
+        const colorPicker = document.querySelector('#fanColor');
       
-        fan.addEventListener('click', () => {
-          colorInput.style.display = 'block';
-          colorInput.click();
+        let currentTarget = null;
+      
+        document.querySelectorAll('.clickable').forEach((el) => {
+          el.addEventListener('click', () => {
+            currentTarget = el;
+            colorPicker.click(); // Opens color picker
+          });
         });
       
-        colorInput.addEventListener('input', (e) => {
-          const color = e.target.value;
-          fan.setAttribute('material', 'color', color);
+        colorPicker.addEventListener('input', (e) => {
+          const newColor = e.target.value;
+          if (currentTarget) {
+            currentTarget.setAttribute('material', 'color', newColor);
+          }
         });
       </script>
+      
       
 </body>
 </html>
