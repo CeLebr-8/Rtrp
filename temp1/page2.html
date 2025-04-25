@@ -1,8 +1,8 @@
-\<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Page1</title>
+  <title>Sunset Ridge</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -17,8 +17,8 @@
     h1 {
       font-size: 2.5em;
       margin-bottom: 20px;
-      color: white;
-      text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+      color: black; /* Changed to black */
+      text-shadow: none; /* Removed white shadow */
     }
 
     .image-container {
@@ -62,24 +62,16 @@
       display: flex;
       flex-direction: column;
       margin-bottom: 20px;
+      padding: 15px;
+      background-color: #f0f0f0;
+      border: 2px solid #ccc;
+      border-radius: 8px;
     }
 
-    .description-box label {
-      font-weight: bold;
-      margin-bottom: 8px;
-      font-size: 1.1em;
-      color: white;
-      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
-    }
-
-    .description-box textarea {
-      width: 100%;
-      height: 150px;
-      padding: 10px;
-      font-size: 1em;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      resize: vertical;
+    .description-box p {
+      font-size: 1.2em;
+      color: black;
+      margin: 0;
     }
 
     .vr-button {
@@ -108,14 +100,25 @@
   </div>
 
   <div class="description-box">
-    <label for="desc">Description</label>
-    <textarea id="desc" placeholder="Write your thoughts or notes about this destination..."></textarea>
+    <p id="desc">🌇 Sunset Ridge - Premium Villa in Jubilee Hills
+      Welcome to Sunset Ridge, a luxurious villa development nestled in the heart of Jubilee Hills, Hyderabad’s most prestigious residential area. Designed for those who seek elegance, space, and exclusivity, Sunset Ridge offers a lifestyle that’s both tranquil and connected to the city’s vibrant pulse.</p>
+      
+     <p>Property Highlights:</p>
+      
+     <p> 📍 Location: Jubilee Hills, Hyderabad</p>
+      
+    <p>  💰 Price: Approx. ₹3 Crores</p>
+      
+     <p> 🛏️ Elegant villa units with top-tier finishes</p>
+      
+      <p>🌿 Surrounded by greenery and premium amenities</p>
+      
+     <p> 🏙️ Quick access to malls, elite schools, and business centers</p>
   </div>
 
   <button class="vr-button" id="vrButton">View on VR</button>
 
 <script>
-  // Save to favorites
   const saveButton = document.getElementById('saveHeart');
   const image = document.getElementById('destinationImage');
   const desc = document.getElementById('desc');
@@ -127,7 +130,7 @@
 
     const newFavorite = {
       image: image.getAttribute('src'),
-      description: desc.value || 'No description'
+      description: desc.textContent || 'No description'
     };
 
     const exists = favorites.some(fav => fav.image === newFavorite.image);
@@ -143,10 +146,7 @@
 
   // VR button
   document.getElementById('vrButton').addEventListener('click', () => {
-    // For local development
     window.open('../Project1/index.html', '_blank');
-    // For GitHub Pages
-    // window.open('/Project1/', '_blank');
   });
 </script>
 
