@@ -1,8 +1,8 @@
-\<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Page1</title>
+  <title>The Enclave</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -17,8 +17,8 @@
     h1 {
       font-size: 2.5em;
       margin-bottom: 20px;
-      color: white;
-      text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+      color: black; /* Changed color to black */
+      text-shadow: none; /* Removed text shadow */
     }
 
     .image-container {
@@ -62,24 +62,16 @@
       display: flex;
       flex-direction: column;
       margin-bottom: 20px;
+      padding: 15px;
+      background-color: #f7f7f7;
+      border: 2px solid #ccc;
+      border-radius: 8px;
     }
 
-    .description-box label {
-      font-weight: bold;
-      margin-bottom: 8px;
-      font-size: 1.1em;
-      color: white;
-      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
-    }
-
-    .description-box textarea {
-      width: 100%;
-      height: 150px;
-      padding: 10px;
-      font-size: 1em;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      resize: vertical;
+    .description-box p {
+      font-size: 1.2em; /* Increased font size */
+      color: black; /* Changed text color to black */
+      margin: 0;
     }
 
     .vr-button {
@@ -101,54 +93,67 @@
 <body>
 
   <h1>The Enclave</h1>
-
   <div class="image-container">
     <img src="b1.jpg" alt="Destination 1" id="destinationImage">
     <button class="heart-icon" id="saveHeart" title="Save">&#10084;</button>
   </div>
 
   <div class="description-box">
-    <label for="desc">Description</label>
-    <textarea id="desc" placeholder="Write your thoughts or notes about this destination..."></textarea>
+    <p id="desc">🏡 The Enclave - Luxury Villa in Manikonda
+      Discover refined living at The Enclave, a premium villa property located in the serene and upscale neighborhood of Manikonda, Hyderabad. Surrounded by natural greenery and offering excellent connectivity to IT hubs, schools, and shopping centers, The Enclave is a perfect blend of luxury and convenience.
+      
+      Property Highlights:</p>
+      
+      <p>📍 Location: Manikonda, Hyderabad</p>
+      
+      <p>💰 Price: Approx. ₹2 Crores</p>
+      
+    <p>  🛏️ Spacious villa units with modern architecture</p>
+      
+     <p> 🛣️ Excellent road access and peaceful surroundings</p>
+      
+    <p>  🏫 Close proximity to schools, hospitals, and corporate hubs</p>
   </div>
 
   <button class="vr-button" id="vrButton">View on VR</button>
 
-<script>
-  // Save to favorites
-  const saveButton = document.getElementById('saveHeart');
-  const image = document.getElementById('destinationImage');
-  const desc = document.getElementById('desc');
+  <script>
+    // Save to favorites
+    const saveButton = document.getElementById('saveHeart');
+    const image = document.getElementById('destinationImage');
+    const desc = document.getElementById('desc');
+    const villaName = document.querySelector('h1').textContent;  // Get the villa name from the <h1> tag
 
-  // Toggle heart and save
-  saveButton.addEventListener('click', () => {
-    saveButton.classList.toggle('active');
-    const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+    // Toggle heart and save
+    saveButton.addEventListener('click', () => {
+      saveButton.classList.toggle('active');
+      const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
 
-    const newFavorite = {
-      image: image.getAttribute('src'),
-      description: desc.value || 'No description'
-    };
+      const newFavorite = {
+        image: image.getAttribute('src'),
+        name: villaName,  // Add the villa name to the favorites object
+        description: desc.textContent || 'No description'
+      };
 
-    const exists = favorites.some(fav => fav.image === newFavorite.image);
+      const exists = favorites.some(fav => fav.image === newFavorite.image);
 
-    if (!exists) {
-      favorites.push(newFavorite);
-      localStorage.setItem('favorites', JSON.stringify(favorites));
-      alert('Added to favorites!');
-    } else {
-      alert('Already in favorites.');
-    }
-  });
+      if (!exists) {
+        favorites.push(newFavorite);
+        localStorage.setItem('favorites', JSON.stringify(favorites));
+        alert('Added to favorites!');
+      } else {
+        alert('Already in favorites.');
+      }
+    });
 
-  // VR button
-  document.getElementById('vrButton').addEventListener('click', () => {
-    // For local development
-    window.open('../Project1/index.html', '_blank');
-    // For GitHub Pages
-    // window.open('/Project1/', '_blank');
-  });
-</script>
+    // VR button
+    document.getElementById('vrButton').addEventListener('click', () => {
+      // For local development
+      window.open('../Project1/index.html', '_blank');
+      // For GitHub Pages
+      // window.open('/Project1/', '_blank');
+    });
+  </script>
 
 </body>
 </html>
