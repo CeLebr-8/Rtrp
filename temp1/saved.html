@@ -65,15 +65,6 @@
       cursor: pointer;
     }
 
-    .button-container {
-      position: absolute;
-      bottom: 30px;
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      gap: 30px;
-    }
-
     .btn-remove {
       background-color: #e74c3c;
       color: white;
@@ -98,10 +89,6 @@
     <!-- Items will appear here -->
   </div>
 
-  <div class="button-container">
-    <button class="btn-remove" onclick="removeSaved()">Remove from Saved</button>
-  </div>
-
   <script>
     const container = document.getElementById("savedContainer");
     const savedItems = JSON.parse(localStorage.getItem("favorites")) || [];
@@ -114,31 +101,23 @@
         div.className = "saved-item";
         div.innerHTML = `
           <img src="${item.image}" alt="Saved Villa" onclick="openDestination('${item.image}', '${item.name}')">
-          <p style="color: #6a0dad;">${item.name}</p> <!-- Display the villa name -->
+          <p style="color: #6a0dad;">${item.name}</p>
           <button class="btn-remove" onclick="removeSingleItem('${item.image}')">Remove</button>
         `;
         container.appendChild(div);
       });
     }
 
-    // Open the destination on click and store it in localStorage
     function openDestination(image, name) {
       localStorage.setItem("currentDestination", JSON.stringify({ image, name }));
-      window.location.href = "destination.html";  // Or open in a new tab with window.open() if needed
+      window.location.href = "destination.html";
     }
 
-    // Function to remove all saved items
-    function removeSaved() {
-      localStorage.removeItem("favorites");
-      location.reload();  // Reload page to reflect changes
-    }
-
-    // Function to remove a single item
     function removeSingleItem(image) {
       let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
       favorites = favorites.filter(item => item.image !== image);
       localStorage.setItem("favorites", JSON.stringify(favorites));
-      location.reload();  // Reload page to reflect changes
+      location.reload();
     }
   </script>
 
