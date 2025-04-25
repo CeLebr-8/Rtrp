@@ -107,48 +107,49 @@
       
      <p> 📍 Location: Jubilee Hills, Hyderabad</p>
       
-    <p>  💰 Price: Approx. ₹3 Crores</p>
+     <p> 💰 Price: Approx. ₹3 Crores</p>
       
      <p> 🛏️ Elegant villa units with top-tier finishes</p>
       
-      <p>🌿 Surrounded by greenery and premium amenities</p>
+     <p> 🌿 Surrounded by greenery and premium amenities</p>
       
      <p> 🏙️ Quick access to malls, elite schools, and business centers</p>
   </div>
 
   <button class="vr-button" id="vrButton">View on VR</button>
 
-<script>
-  const saveButton = document.getElementById('saveHeart');
-  const image = document.getElementById('destinationImage');
-  const desc = document.getElementById('desc');
+  <script>
+    const saveButton = document.getElementById('saveHeart');
+    const image = document.getElementById('destinationImage');
+    const desc = document.getElementById('desc');
+    const villaName = document.querySelector('h1').textContent;
 
-  // Toggle heart and save
-  saveButton.addEventListener('click', () => {
-    saveButton.classList.toggle('active');
-    const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+    saveButton.addEventListener('click', () => {
+      saveButton.classList.toggle('active');
 
-    const newFavorite = {
-      image: image.getAttribute('src'),
-      description: desc.textContent || 'No description'
-    };
+      const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
 
-    const exists = favorites.some(fav => fav.image === newFavorite.image);
+      const newFavorite = {
+        image: image.getAttribute('src'),
+        name: villaName,
+        description: desc.textContent || 'No description'
+      };
 
-    if (!exists) {
-      favorites.push(newFavorite);
-      localStorage.setItem('favorites', JSON.stringify(favorites));
-      alert('Added to favorites!');
-    } else {
-      alert('Already in favorites.');
-    }
-  });
+      const exists = favorites.some(fav => fav.image === newFavorite.image);
 
-  // VR button
-  document.getElementById('vrButton').addEventListener('click', () => {
-    window.open('../Project1/index.html', '_blank');
-  });
-</script>
+      if (!exists) {
+        favorites.push(newFavorite);
+        localStorage.setItem('favorites', JSON.stringify(favorites));
+        alert('Added to favorites!');
+      } else {
+        alert('Already in favorites.');
+      }
+    });
+
+    document.getElementById('vrButton').addEventListener('click', () => {
+      window.open('Project1/index.html', '_blank'); // Adjust path if needed
+    });
+  </script>
 
 </body>
 </html>

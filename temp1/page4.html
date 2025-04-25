@@ -110,37 +110,37 @@
 
   <button class="vr-button" id="vrButton">View on VR</button>
 
-<script>
-  // Save to favorites
-  const saveButton = document.getElementById('saveHeart');
-  const image = document.getElementById('destinationImage');
-  const desc = document.getElementById('desc');
+  <script>
+    const saveButton = document.getElementById('saveHeart');
+    const image = document.getElementById('destinationImage');
+    const desc = document.getElementById('desc');
+    const villaName = document.querySelector('h1').textContent;
 
-  saveButton.addEventListener('click', () => {
-    saveButton.classList.toggle('active');
-    const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+    saveButton.addEventListener('click', () => {
+      saveButton.classList.toggle('active');
+      const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
 
-    const newFavorite = {
-      image: image.getAttribute('src'),
-      description: desc.textContent || 'No description'
-    };
+      const newFavorite = {
+        image: image.getAttribute('src'),
+        name: villaName,
+        description: desc.textContent || 'No description'
+      };
 
-    const exists = favorites.some(fav => fav.image === newFavorite.image);
+      const exists = favorites.some(fav => fav.image === newFavorite.image);
 
-    if (!exists) {
-      favorites.push(newFavorite);
-      localStorage.setItem('favorites', JSON.stringify(favorites));
-      alert('Added to favorites!');
-    } else {
-      alert('Already in favorites.');
-    }
-  });
+      if (!exists) {
+        favorites.push(newFavorite);
+        localStorage.setItem('favorites', JSON.stringify(favorites));
+        alert('Added to favorites!');
+      } else {
+        alert('Already in favorites.');
+      }
+    });
 
-  // VR button
-  document.getElementById('vrButton').addEventListener('click', () => {
-    window.open('../Project1/index.html', '_blank');
-  });
-</script>
+    document.getElementById('vrButton').addEventListener('click', () => {
+      window.open('../Project1/index.html', '_blank');
+    });
+  </script>
 
 </body>
 </html>
