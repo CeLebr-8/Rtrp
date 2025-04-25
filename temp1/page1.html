@@ -122,6 +122,7 @@
     const saveButton = document.getElementById('saveHeart');
     const image = document.getElementById('destinationImage');
     const desc = document.getElementById('desc');
+    const villaName = document.querySelector('h1').textContent;  // Get the villa name from the <h1> tag
 
     // Toggle heart and save
     saveButton.addEventListener('click', () => {
@@ -130,6 +131,7 @@
 
       const newFavorite = {
         image: image.getAttribute('src'),
+        name: villaName,  // Add the villa name to the favorites object
         description: desc.textContent || 'No description'
       };
 

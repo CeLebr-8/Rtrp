@@ -29,18 +29,6 @@
       box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
       border-bottom: 5px solid #9b59b6;
       text-align: center;
-      animation: slideIn 1s ease-out;
-    }
-
-    @keyframes slideIn {
-      0% {
-        opacity: 0;
-        transform: translateX(-50%) translateY(-30px);
-      }
-      100% {
-        opacity: 1;
-        transform: translateX(-50%) translateY(0);
-      }
     }
 
     .saved-container {
@@ -54,13 +42,6 @@
       flex-wrap: wrap;
       gap: 20px;
       justify-content: center;
-      opacity: 0;
-      animation: fadeIn 1s 1s forwards;
-    }
-
-    @keyframes fadeIn {
-      0% { opacity: 0; }
-      100% { opacity: 1; }
     }
 
     .saved-item {
@@ -84,25 +65,27 @@
       cursor: pointer;
     }
 
-    .villa-name {
-      font-weight: bold;
-      font-size: 1.1rem;
-      color: #6a0dad;
-      margin-bottom: 10px;
+    .button-container {
+      position: absolute;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 30px;
     }
 
-    .btn {
-      padding: 10px 20px;
-      font-size: 1rem;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
+    .btn-remove {
       background-color: #e74c3c;
       color: white;
+      padding: 14px 30px;
+      font-size: 1.1rem;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
       transition: background 0.3s ease;
     }
 
-    .btn:hover {
+    .btn-remove:hover {
       background-color: #c0392b;
     }
   </style>
@@ -111,36 +94,51 @@
 
   <div class="header">My Saved</div>
 
-  <div class="saved-container" id="savedContainer"></div>
+  <div class="saved-container" id="savedContainer">
+    <!-- Items will appear here -->
+  </div>
+
+  <div class="button-container">
+    <button class="btn-remove" onclick="removeSaved()">Remove from Saved</button>
+  </div>
 
   <script>
     const container = document.getElementById("savedContainer");
-    let savedItems = JSON.parse(localStorage.getItem("favorites")) || [];
+    const savedItems = JSON.parse(localStorage.getItem("favorites")) || [];
 
     if (savedItems.length === 0) {
       container.innerHTML = "<p style='color:#3a0ca3;'>Not saved yet.</p>";
     } else {
-      savedItems.forEach((item, index) => {
+      savedItems.forEach(item => {
         const div = document.createElement("div");
         div.className = "saved-item";
         div.innerHTML = `
-          <img src="${item.image}" alt="Saved Image" onclick="openDestination('${item.image}')">
-          <div class="villa-name">${item.name}</div>
-          <button class="btn" onclick="removeItem(${index})">Remove</button>
+          <img src="${item.image}" alt="Saved Villa" onclick="openDestination('${item.image}', '${item.name}')">
+          <p style="color: #6a0dad;">${item.name}</p> <!-- Display the villa name -->
+          <button class="btn-remove" onclick="removeSingleItem('${item.image}')">Remove</button>
         `;
         container.appendChild(div);
       });
     }
 
-    function openDestination(image) {
-      localStorage.setItem("currentDestination", JSON.stringify({ image }));
-      window.location.href = "Page1.html";
+    // Open the destination on click and store it in localStorage
+    function openDestination(image, name) {
+      localStorage.setItem("currentDestination", JSON.stringify({ image, name }));
+      window.location.href = "destination.html";  // Or open in a new tab with window.open() if needed
     }
 
-    function removeItem(index) {
-      savedItems.splice(index, 1);
-      localStorage.setItem("favorites", JSON.stringify(savedItems));
-      location.reload();
+    // Function to remove all saved items
+    function removeSaved() {
+      localStorage.removeItem("favorites");
+      location.reload();  // Reload page to reflect changes
+    }
+
+    // Function to remove a single item
+    function removeSingleItem(image) {
+      let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+      favorites = favorites.filter(item => item.image !== image);
+      localStorage.setItem("favorites", JSON.stringify(favorites));
+      location.reload();  // Reload page to reflect changes
     }
   </script>
 
