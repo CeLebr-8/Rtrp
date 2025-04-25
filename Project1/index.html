@@ -38,8 +38,9 @@
         </a-entity>
 
         <!-- Buttons for moving up/down stairs -->
-        <a-box id="up" geometry="width:0.28;height:0.6;depth:0.6" position="9.3 4.05 -5.871" src="assets/hardwood.jpg" class="intersectable"></a-box>
-        <a-box id="down" geometry="depth:0.6;height:0.6;width:0.27999999999999997" position="9.3 13.967 6.185" src="assets/hardwood.jpg" class="intersectable"></a-box>
+        <a-box id="up" geometry="width:0.28;height:0.6;depth:0.6" position="9.3 4.05 -5.871" src="assets/hardwood.jpg" class="clickable"
+></a-box>
+        <a-box id="down" geometry="depth:0.6;height:0.6;width:0.27999999999999997" position="9.3 13.967 6.185" src="assets/hardwood.jpg" class="clickable"></a-box>
         <script>
             var cam = document.querySelector('#cam');
             var ch1 = document.querySelector('#up');
@@ -162,7 +163,7 @@
         <a-entity id="insideLight" light="color:#BBB;type:ambient" position="0 7.486 2.815"></a-entity>
 
         <!--Switch-->
-        <a-entity id="dimmer" onclick="switchLight()" position="-25 4 -19" rotation="0 90 0" class="intersectable">
+        <a-entity id="dimmer" onclick="switchLight()" position="-25 4 -19" rotation="0 90 0" class="clickable">
             <a-box position="-33.681 0.01 21.343" width="0.5" height="0.75" depth="0.1" color="white" rotation="0 90 0"></a-box>
         </a-entity>
 
@@ -359,7 +360,7 @@
         <!--Bedroom-->
         <!--Cat-->
         <a-obj-model id="cat" src="assets/siameseCat.obj" mtl="assets/siameseCat.mtl" position="26.518 0.114 -8.774" rotation="0 -90 0" scale="0.05 0.05 0.05" material=""></a-obj-model>
-        <a-box geometry="depth:5;height:5;width:5" material="" visible="false" position="27.064 0.656 -8.122" class="intersectable" sound="on:click;src:assets/Cat-meow-1.mp3" scale="1.035 0.668 0.673"></a-box>
+        <a-box geometry="depth:5;height:5;width:5" material="" visible="false" position="27.064 0.656 -8.122" class="clickable" sound="on:click;src:assets/Cat-meow-1.mp3" scale="1.035 0.668 0.673"></a-box>
         <!--Bedroom Items-->
         <a-obj-model id="bedroom-light" src="assets/hangingLight.obj" mtl="assets/hangingLight.mtl" position="24.928 10.918 -0.815" scale="0.1 0.1 0.1" material=""></a-obj-model>
         <a-obj-model id="bed" src="assets/letto.obj" mtl="assets/letto.mtl" position="43.406 0.108 -5.836" rotation="0 -90 0" scale="0.05 0.05 0.05" material=""></a-obj-model>
@@ -369,7 +370,7 @@
         <a-obj-model id="flowers-1" src="assets/flowers.obj" mtl="assets/flowers.mtl" position="46.102 5.432 -0.78" scale="0.05 0.05 0.05" material="" obj-model=""></a-obj-model>
         <a-obj-model id="flowers-2" src="assets/flowers.obj" mtl="assets/flowers.mtl" position="46.102 5.432 11.736" scale="0.05 0.05 0.05" material=""></a-obj-model>
         <a-obj-model id="armoire" src="assets/armoireLotus.obj" mtl="assets/armoireLotus.mtl" position="31.029 4.42 11.582" rotation="0 180 0" scale="0.04 0.04 0.04" material="" obj-model=""></a-obj-model>
-        <a-entity id="television-2" position="23.925 0 2.79" rotation="0 180 0"><a-box color="#000000" position="8.831 5.776 3.784" geometry="depth:8.46;height:4.6;width:0.15" class="intersectable">
+        <a-entity id="television-2" position="23.925 0 2.79" rotation="0 180 0"><a-box color="#000000" position="8.831 5.776 3.784" geometry="depth:8.46;height:4.6;width:0.15" class="clickable">
             <a-animation begin="click" attribute="material.color" from="black" to="white" dur="2400"></a-animation>
         </a-box>
             <a-box color="#000000" position="8.81 8.13 3.78" material="color:#696969" geometry="depth:8.49;height:0.14;width:0.15"></a-box>
